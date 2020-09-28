@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.daytoday">
-<uses-permission android:name="INTERNET"/>
+
+    <uses-permission android:name="INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,17 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".updateData"></activity>
-        <activity android:name=".ExpenseManage2" />
-        <activity android:name=".ExpenseManage">
+        <activity android:name=".ExpenseManager2" />
+        <activity android:name=".ExpenseManager"/>
+        <activity android:name=".updateDebt"></activity>
+        <activity android:name=".DebtListActivity" />
+        <activity android:name=".AddDebtActivity"/>
+        <activity android:name=".ListOfListsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".listActivity">
-
-        </activity>
+        <activity android:name=".ListActivity"></activity>
         <activity android:name=".RegistrationActivity" />
     </application>
 

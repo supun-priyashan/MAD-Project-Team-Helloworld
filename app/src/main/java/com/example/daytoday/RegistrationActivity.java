@@ -38,7 +38,8 @@ public class RegistrationActivity extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ExpenseManage.class));
+                startActivity(new Intent(getApplicationContext(), ExpenseManager.class));
+
             }
         });
     }

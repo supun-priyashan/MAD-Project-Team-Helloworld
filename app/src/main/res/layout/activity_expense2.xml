@@ -3,18 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
     android:layout_height="match_parent"
+<<<<<<<< HEAD:app/src/main/res/layout/activity_expense2.xml
     tools:context=".ExpenseManage2">
+========
+    tools:context=".DebtListActivity">
+>>>>>>>> master:app/src/main/res/layout/activity_main2.xml
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/receive"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="1dp" />
+        android:id="@+id/recyclerView">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
 </LinearLayout>
