@@ -63,7 +63,7 @@ public class updateData extends AppCompatActivity {
 
         reference.child(key).setValue(data);
 
-        startActivity(new Intent(updateData.this,MainActivity2.class));
+        startActivity(new Intent(updateData.this, ExpenseManager2.class));
 
     }
 });
