@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class MainActivity extends AppCompatActivity {
+public class AddDebtActivity extends AppCompatActivity {
      private EditText cus_name,date,d_amount,discription;
      private Button btn,view;
      Debt dept;
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toast.makeText(MainActivity.this, "Successfully!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AddDebtActivity.this, "Successfully!", Toast.LENGTH_SHORT).show();
 
 
 
@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
                 db.child(String.valueOf(did)).setValue(dept);
 
 
-                Toast.makeText(MainActivity.this, "Insert Successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddDebtActivity.this, "Insert Successfully!", Toast.LENGTH_SHORT).show();
 
-                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                startActivity(new Intent(getApplicationContext(), DebtListActivity.class));
 
 
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                startActivity(new Intent(getApplicationContext(), DebtListActivity.class));
             }
         });
 

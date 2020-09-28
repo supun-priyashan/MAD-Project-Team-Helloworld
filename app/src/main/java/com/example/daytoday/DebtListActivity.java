@@ -17,10 +17,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class MainActivity2 extends AppCompatActivity {
+public class DebtListActivity extends AppCompatActivity {
 
     private FirebaseRecyclerOptions<Debt> options;
-    private FirebaseRecyclerAdapter<Debt,MyViewHolder> adapter;
+    private FirebaseRecyclerAdapter<Debt, DebtViewHolder> adapter;
 
     private RecyclerView recyclerView;
     DatabaseReference db;
@@ -41,10 +41,10 @@ public class MainActivity2 extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         options = new FirebaseRecyclerOptions.Builder<Debt>().setQuery(FirebaseDatabase.getInstance().getReference().child("New Debt"),Debt.class).build();
-        adapter = new FirebaseRecyclerAdapter<Debt, MyViewHolder>(options) {
+        adapter = new FirebaseRecyclerAdapter<Debt, DebtViewHolder>(options) {
 
             @Override
-            protected void onBindViewHolder(@NonNull final MyViewHolder holder, int position, @NonNull final Debt debt) {
+            protected void onBindViewHolder(@NonNull final DebtViewHolder holder, int position, @NonNull final Debt debt) {
 
 
                 holder.name.setText("Name="+debt.getName());
@@ -65,7 +65,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                         bundle.putString("key",postkey);
 
-                        Intent intent = new Intent(view.getContext(),update.class);
+                        Intent intent = new Intent(view.getContext(), updateDebt.class);
 
                         intent.putExtras(bundle);
 
@@ -87,9 +87,9 @@ public class MainActivity2 extends AppCompatActivity {
 
             @NonNull
             @Override
-            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public DebtViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.view_layout,parent,false);
-                return new MyViewHolder(view);
+                return new DebtViewHolder(view);
 
             }
         };

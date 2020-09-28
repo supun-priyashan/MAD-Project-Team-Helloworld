@@ -1,6 +1,5 @@
 package com.example.daytoday;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -39,7 +38,7 @@ public class RegistrationActivity extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), AddDebtActivity.class));
             }
         });
     }
