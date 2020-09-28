@@ -24,9 +24,6 @@ import com.example.daytoday.Model.Item;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,9 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.util.Date;
 
-import static java.lang.Boolean.TRUE;
-
-public class listActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity {
 
     private FloatingActionButton fab_btn;
     private DatabaseReference mDatabase;
@@ -157,18 +152,47 @@ public class listActivity extends AppCompatActivity {
 
     private void customDialog(){
 
-        AlertDialog.Builder myDialog = new AlertDialog.Builder(listActivity.this);
-        LayoutInflater inflater = LayoutInflater.from(listActivity.this);
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(ListActivity.this);
+        LayoutInflater inflater = LayoutInflater.from(ListActivity.this);
         View myView = inflater.inflate(R.layout.input_data,null);
 
         final AlertDialog dialog = myDialog.create();
+
+        if (dialog.getWindow() != null)
+            dialog.getWindow().getAttributes().windowAnimations = R.style.SlidingDialogAnimation;
 
         dialog.setView(myView);
 
         final EditText type = myView.findViewById(R.id.edit_type);
         final EditText amount = myView.findViewById(R.id.edit_amount);
         final EditText note = myView.findViewById(R.id.edit_note);
-        Button save = myView.findViewById(R.id.btnSave);
+        final Button save = myView.findViewById(R.id.btnSave);
+
+        /*type.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.toString().trim().length()==0){
+                    save.setEnabled(false);
+                } else {
+                    save.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }
+        });*/
 
         save.setOnClickListener(new OnClickListener() {
             @Override
@@ -178,10 +202,13 @@ public class listActivity extends AppCompatActivity {
                 String mAmount = amount.getText().toString().trim();
                 String mNote = note.getText().toString().trim();
 
-                int amint = Integer.parseInt(mAmount);
-
                 if(TextUtils.isEmpty(mType)){
-                    type.setError("Enter the type");
+                    type.setError("Enter Item Name");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(mNote)){
+                    note.setError("Enter Item Quantity");
                     return;
                 }
 
@@ -190,6 +217,8 @@ public class listActivity extends AppCompatActivity {
                     return;
                 }
 
+                float amint = Float.parseFloat(mAmount);
+
                 String id = mDatabase.push().getKey();
                 String date = DateFormat.getDateInstance().format(new Date());
 
@@ -197,7 +226,7 @@ public class listActivity extends AppCompatActivity {
 
                 mDatabase.child(id).setValue(item);
 
-                Toast.makeText(listActivity.this,"Item Added",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListActivity.this,"Item Added",Toast.LENGTH_SHORT).show();
 
                 dialog.dismiss();
             }
@@ -211,13 +240,16 @@ public class listActivity extends AppCompatActivity {
 
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
-        AlertDialog.Builder myDialog = new AlertDialog.Builder(listActivity.this);
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(ListActivity.this);
 
-        LayoutInflater inflater = LayoutInflater.from(listActivity.this);
+        LayoutInflater inflater = LayoutInflater.from(ListActivity.this);
 
         View mView = inflater.inflate(R.layout.update_data,null);
 
         final AlertDialog dialog = myDialog.create();
+
+        if (dialog.getWindow() != null)
+            dialog.getWindow().getAttributes().windowAnimations = R.style.SlidingDialogAnimation;
 
         dialog.setView(mView);
 
@@ -246,6 +278,21 @@ public class listActivity extends AppCompatActivity {
                 String mAmount = edtAmount.getText().toString().trim();
                 note = edtNote.getText().toString().trim();
 
+                if(TextUtils.isEmpty(type)){
+                    edtType.setError("Enter Item Name");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(note)){
+                    edtNote.setError("Enter Item Quantity");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(mAmount)){
+                    edtAmount.setError("Enter amount");
+                    return;
+                }
+
                 float floatAmount = Float.parseFloat(mAmount);
 
                 String date = DateFormat.getDateInstance().format(new Date());
@@ -254,7 +301,7 @@ public class listActivity extends AppCompatActivity {
 
                 mDatabase.child(postKey).setValue(item);
 
-                Toast.makeText(listActivity.this,"Item Updated",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListActivity.this,"Item Updated",Toast.LENGTH_SHORT).show();
 
                 dialog.dismiss();
 
@@ -267,7 +314,7 @@ public class listActivity extends AppCompatActivity {
 
                 mDatabase.child(postKey).removeValue();
 
-                Toast.makeText(listActivity.this,"Item Deleted",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListActivity.this,"Item Deleted",Toast.LENGTH_SHORT).show();
 
                 dialog.dismiss();
             }

@@ -22,7 +22,7 @@
                 android:background="@color/colorAccent"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/add_item_title"
+                android:text="@string/add_list_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/white" />
 
@@ -47,7 +47,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
                         android:padding="5dp"
-                        android:text="@string/item_name_label"
+                        android:text="@string/list_name_lab"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 </RelativeLayout>
@@ -58,7 +58,7 @@
                     android:layout_weight="2">
 
                     <EditText
-                        android:id="@+id/edit_type"
+                        android:id="@+id/edit_list_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -67,9 +67,8 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        android:autoText="false"
-                        android:autofillHints=""
-                        android:hint="@string/item_name_hint" />
+                        android:autoText="true"
+                        android:autofillHints="" />
 
                 </RelativeLayout>
 
@@ -95,7 +94,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
                         android:padding="5dp"
-                        android:text="@string/qty_lab"
+                        android:text="@string/list_desc_lab"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 </RelativeLayout>
@@ -106,7 +105,7 @@
                     android:layout_weight="2">
 
                     <EditText
-                        android:id="@+id/edit_note"
+                        android:id="@+id/edit_list_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -114,55 +113,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:hint="@string/item_qty_hint" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:padding="5dp"
-                        android:text="@string/expected_cost_lab"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2">
-
-                    <EditText
-                        android:id="@+id/edit_amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:hint="@string/cost_hint" />
+                        android:layout_marginBottom="10dp" />
 
                 </RelativeLayout>
 
