@@ -8,11 +8,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class DebtViewHolder extends RecyclerView.ViewHolder {
 
     Button btnUp,btnDl;
     TextView name,date_,amount,dis;
-    public MyViewHolder(@NonNull View itemView) {
+    public DebtViewHolder(@NonNull View itemView) {
         super(itemView);
 
         name = itemView.findViewById(R.id.name);
