@@ -18,7 +18,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity2 extends AppCompatActivity {
+public class ExpenseManage2 extends AppCompatActivity {
 
     private FirebaseRecyclerOptions<Data> options;
     private FirebaseRecyclerAdapter<Data, dataRetrive> adapter;
@@ -32,7 +32,7 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_expense2);
 
         recyclerView = findViewById(R.id.receive);
         recyclerView.setHasFixedSize(true);
@@ -76,7 +76,7 @@ public class MainActivity2 extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         reff.child(postkey).removeValue();
-                        Toast.makeText(MainActivity2.this,postkey,Toast.LENGTH_LONG).show();
+                        Toast.makeText(ExpenseManage2.this,postkey,Toast.LENGTH_LONG).show();
                     }
                 });
             }

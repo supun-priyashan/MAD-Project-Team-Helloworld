@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+public class ExpenseManage extends AppCompatActivity {
 
     private EditText amount_ed,type_ed,note_ed;
 
@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_expense);
 
-        Toast.makeText(MainActivity.this,"sussuccesful",Toast.LENGTH_SHORT).show();
+        Toast.makeText(ExpenseManage.this,"sussuccesful",Toast.LENGTH_SHORT).show();
 
         amount_ed = (EditText) findViewById(R.id.amount_up);
         type_ed = (EditText) findViewById(R.id.type_ed);
@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
                 reff.child(String.valueOf(maxid+1)).setValue(data);
 
-                Toast.makeText(MainActivity.this,"data insert successfully",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExpenseManage.this,"data insert successfully",Toast.LENGTH_SHORT).show();
 
-            startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+            startActivity(new Intent(getApplicationContext(), ExpenseManage2.class));
 
 
         }
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MainActivity2.class));
+                startActivity(new Intent(getApplicationContext(), ExpenseManage2.class));
             }
         });
     }
