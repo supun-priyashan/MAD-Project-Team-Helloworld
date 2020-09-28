@@ -28,7 +28,7 @@ public class AddDebtActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_adddebt);
 
         Toast.makeText(AddDebtActivity.this, "Successfully!", Toast.LENGTH_SHORT).show();
 
