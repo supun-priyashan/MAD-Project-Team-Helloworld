@@ -32,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -44,11 +46,14 @@ public class ListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private TextView total;
+    private TextView listNameShow;
 
     private String type;
     private float amount;
     private  String note;
     private  String postKey;
+    private String listKey;
+    private String listName;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -56,12 +61,20 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        Bundle extras = getIntent().getExtras();
+        listKey = extras.getString("key");
+        listName = extras.getString("listName");
+
+        listNameShow = findViewById(R.id.list_name);
+
+        listNameShow.setText(listName);
+
         //mAuth = FirebaseAuth.getInstance();
 
         //FirebaseUser mUser = mAuth.getCurrentUser();
         //String uid = mUser.getUid();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Shopping List");
+        mDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(listKey).child("Items");
         mDatabase.keepSynced(true);
 
         total = findViewById(R.id.totAmount);
@@ -78,11 +91,15 @@ public class ListActivity extends AppCompatActivity {
                     totAmount += item.getAmount();
                 }
 
-                DecimalFormat decimalFormat = new DecimalFormat("#.00");
+                DecimalFormat decimalFormat = new DecimalFormat("#0.00");
                 String fTotAmount = decimalFormat.format(totAmount);
 
                 total.setText(String.valueOf(fTotAmount));
 
+                Map<String, Object> updates = new HashMap<String,Object>();
+                updates.put("amount",totAmount);
+
+                FirebaseDatabase.getInstance().getReference("Shopping List").child(listKey).updateChildren(updates);
             }
 
             @Override
@@ -112,8 +129,7 @@ public class ListActivity extends AppCompatActivity {
         });
 
         options = new FirebaseRecyclerOptions.Builder<Item>()
-                .setQuery(FirebaseDatabase.getInstance().getReference()
-                        .child("Shopping List"),Item.class).build();
+                .setQuery(mDatabase,Item.class).build();
 
         adapter = new FirebaseRecyclerAdapter<Item, MyViewHolder>(options) {
             @Override
@@ -154,7 +170,7 @@ public class ListActivity extends AppCompatActivity {
 
         AlertDialog.Builder myDialog = new AlertDialog.Builder(ListActivity.this);
         LayoutInflater inflater = LayoutInflater.from(ListActivity.this);
-        View myView = inflater.inflate(R.layout.input_data,null);
+        View myView = inflater.inflate(R.layout.input_item,null);
 
         final AlertDialog dialog = myDialog.create();
 
@@ -217,12 +233,12 @@ public class ListActivity extends AppCompatActivity {
                     return;
                 }
 
-                float amint = Float.parseFloat(mAmount);
+                float amFloat = Float.parseFloat(mAmount);
 
                 String id = mDatabase.push().getKey();
                 String date = DateFormat.getDateInstance().format(new Date());
 
-                Item item = new Item(mType,amint,mNote,date,id);
+                Item item = new Item(mType,amFloat,mNote,date,id);
 
                 mDatabase.child(id).setValue(item);
 
@@ -244,7 +260,7 @@ public class ListActivity extends AppCompatActivity {
 
         LayoutInflater inflater = LayoutInflater.from(ListActivity.this);
 
-        View mView = inflater.inflate(R.layout.update_data,null);
+        View mView = inflater.inflate(R.layout.update_item,null);
 
         final AlertDialog dialog = myDialog.create();
 
@@ -357,7 +373,7 @@ public class ListActivity extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.N)
         public  void setAmount(float amount){
 
-            DecimalFormat decimalFormat = new DecimalFormat("#.00");
+            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
             String nAmount = decimalFormat.format(amount);
 
             TextView mAmount = myView.findViewById(R.id.amount);

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,11 +31,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ListOfListsActivity extends AppCompatActivity {
 
     private FloatingActionButton fab_btn;
-    private DatabaseReference mDatabase;
+    private DatabaseReference lDatabase;
     //private FirebaseAuth mAuth;
 
     private FirebaseRecyclerOptions<List> options;
@@ -42,7 +46,6 @@ public class ListOfListsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private String type;
-    private float total;
     private  String note;
     private  String postKey;
 
@@ -51,8 +54,8 @@ public class ListOfListsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_lists);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Lists");
-        mDatabase.keepSynced(true);
+        lDatabase = FirebaseDatabase.getInstance().getReference("Shopping List");
+        lDatabase.keepSynced(true);
 
         fab_btn = findViewById(R.id.fabLists);
         recyclerView = findViewById(R.id.recyclerLists);
@@ -74,8 +77,7 @@ public class ListOfListsActivity extends AppCompatActivity {
         });
 
         options = new FirebaseRecyclerOptions.Builder<List>()
-                .setQuery(FirebaseDatabase.getInstance().getReference()
-                        .child("Lists"),List.class).build();
+                .setQuery(lDatabase,List.class).build();
 
         adapter = new FirebaseRecyclerAdapter<List, ListOfListsActivity.MyViewHolder>(options) {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -86,19 +88,47 @@ public class ListOfListsActivity extends AppCompatActivity {
                 holder.setDate(model.getDate());
                 holder.setAmount(model.getAmount());
                 holder.setNote(model.getNote());
+                holder.setAmount(model.getAmount());
 
-                /*holder.myView.setOnClickListener(new View.OnClickListener() {
+                holder.del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        postKey = getRef(position).getKey();
+                        lDatabase.child(postKey).removeValue();
+                        Toast.makeText(ListOfListsActivity.this,"List Deleted",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                holder.ed.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         postKey = getRef(position).getKey();
                         type = model.getType();
                         note = model.getNote();
-                        amount = model.getAmount();
 
-                        updateData();
+                        updateList();
+
                     }
-                });*/
+                });
+
+                holder.myView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        postKey = getRef(position).getKey();
+                        type = model.getType();
+
+                        Intent list = new Intent(getApplicationContext(),ListActivity.class);
+                        list.putExtra("key",postKey);
+                        list.putExtra("listName",type);
+
+                        Toast.makeText(ListOfListsActivity.this,"Retrieving List..",Toast.LENGTH_SHORT).show();
+
+                        startActivity(list);
+
+                    }
+                });
 
             }
 
@@ -174,12 +204,12 @@ public class ListOfListsActivity extends AppCompatActivity {
                     return;
                 }
 
-                String id = mDatabase.push().getKey();
+                String id = lDatabase.push().getKey();
                 String date = DateFormat.getDateInstance().format(new Date());
 
                 List list = new List(mType,mAmount,mNote,date,id);
 
-                mDatabase.child(id).setValue(list);
+                lDatabase.child(id).setValue(list);
 
                 Toast.makeText(ListOfListsActivity.this,"Item Added",Toast.LENGTH_SHORT).show();
 
@@ -193,10 +223,13 @@ public class ListOfListsActivity extends AppCompatActivity {
     public static class MyViewHolder extends  RecyclerView.ViewHolder{
 
         View myView;
+        ImageView del,ed;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             myView = itemView;
+            del = myView.findViewById(R.id.delList);
+            ed = myView.findViewById(R.id.edlList);
         }
 
         public void setType(String type){
@@ -217,12 +250,78 @@ public class ListOfListsActivity extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.N)
         public  void setAmount(float amount){
 
-            DecimalFormat decimalFormat = new DecimalFormat("#.00");
+            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
             String nAmount = decimalFormat.format(amount);
 
             TextView mAmount = myView.findViewById(R.id.listAmount);
             mAmount.setText(String.valueOf(nAmount));
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void updateList(){
+
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(ListOfListsActivity.this);
+
+        LayoutInflater inflater = LayoutInflater.from(ListOfListsActivity.this);
+
+        View mView = inflater.inflate(R.layout.update_list,null);
+
+        final AlertDialog dialog = myDialog.create();
+
+        if (dialog.getWindow() != null)
+            dialog.getWindow().getAttributes().windowAnimations = R.style.SlidingDialogAnimation;
+
+        dialog.setView(mView);
+
+        final EditText edtType = mView.findViewById(R.id.edit_list_name_upd);
+        final EditText edtNote = mView.findViewById(R.id.edit_list_desc_upd);
+
+        edtType.setText(type);
+        edtType.setSelection(type.length());
+
+        edtNote.setText(note);
+        edtNote.setSelection(note.length());
+
+        Button btnUpdate = mView.findViewById(R.id.btnSaveListUpd);
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                type = edtType.getText().toString().trim();
+                note = edtNote.getText().toString().trim();
+
+                if(TextUtils.isEmpty(type)){
+                    edtType.setError("Enter Item Name");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(note)){
+                    edtNote.setError("Enter Item Quantity");
+                    return;
+                }
+
+
+                //String date = DateFormat.getDateInstance().format(new Date());
+
+                Map<String, Object> updates = new HashMap<String,Object>();
+                updates.put("type",type);
+                updates.put("note",note);
+
+                lDatabase.child(postKey).updateChildren(updates);
+
+                Toast.makeText(ListOfListsActivity.this,"List Updated",Toast.LENGTH_SHORT).show();
+
+                dialog.dismiss();
+
+            }
+        });
+
+        dialog.show();;
+
     }
 
     protected void onStart() {

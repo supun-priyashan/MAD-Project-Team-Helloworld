@@ -6,13 +6,15 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fadingEdge="horizontal|vertical|none"
+        android:fadingEdgeLength="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -20,14 +22,15 @@
                 android:background="@color/colorAccent"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/edit_item_title"
+                android:text="@string/add_item_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -55,10 +58,19 @@
                     android:layout_weight="2">
 
                     <EditText
-                        android:id="@+id/edit_type_upd"
+                        android:id="@+id/edit_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"/>
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:autoText="false"
+                        android:autofillHints=""
+                        android:hint="@string/item_name_hint"
+                        android:inputType="text|textAutoComplete" />
 
                 </RelativeLayout>
 
@@ -95,10 +107,17 @@
                     android:layout_weight="2">
 
                     <EditText
-                        android:id="@+id/edit_note_upd"
+                        android:id="@+id/edit_note"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"/>
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/item_qty_hint"
+                        android:inputType="text|textAutoComplete" />
 
                 </RelativeLayout>
 
@@ -107,7 +126,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -135,27 +155,7 @@
                     android:layout_weight="2">
 
                     <EditText
-                        android:id="@+id/edit_amount_upd"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"/>
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <Button
-                        android:id="@+id/btnDelete"
+                        android:id="@+id/edit_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -164,36 +164,23 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@color/colorAccent"
-                        android:text="@string/delete_btn_lab"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@android:color/white" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <Button
-                        android:id="@+id/btnSaveUpd"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/colorAccent"
-                        android:text="@string/save_cahnges_btn_lab"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@android:color/white" />
+                        android:hint="@string/cost_hint"
+                        android:inputType="number|numberDecimal" />
 
                 </RelativeLayout>
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/colorAccent"
+                android:shadowColor="@color/blueish_shadows"
+                android:text="@string/btn_save_lab"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 

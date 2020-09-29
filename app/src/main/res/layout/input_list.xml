@@ -68,7 +68,8 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
                         android:autoText="true"
-                        android:autofillHints="" />
+                        android:autofillHints=""
+                        android:inputType="text|textAutoComplete" />
 
                 </RelativeLayout>
 
@@ -113,7 +114,8 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp" />
+                        android:layout_marginBottom="10dp"
+                        android:inputType="text|textAutoComplete" />
 
                 </RelativeLayout>
 

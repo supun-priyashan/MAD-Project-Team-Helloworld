@@ -24,4 +24,7 @@
     <string name="list_desc_lab">List Description</string>
     <string name="list_name_def">List</string>
     <string name="list_desc_def">desc</string>
+    <string name="del_btn_content_desc">Delete</string>
+    <string name="ed_btn_content_desc">Edit</string>
+    <string name="edit_list_title">Edit List</string>
 </resources>
