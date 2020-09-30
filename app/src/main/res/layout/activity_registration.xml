@@ -106,18 +106,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="22.3dp"
                         android:fontFamily="@font/poppins"
-                        android:text="Username"
+                        android:text="@string/mail_lab"
                         android:textColor="#9e9d9d"
                         android:textSize="12.3sp" />
 
 
-                    <TextView
+                    <EditText
                         android:id="@+id/reg_uname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/poppins"
-                        android:maxLength="10"
+                        android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:paddingTop="5dp"
                         android:textColorHint="#333232"
@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="23dp"
                         android:fontFamily="@font/poppins"
-                        android:text="Password"
+                        android:text="@string/pwd_lab"
                         android:textColor="#9e9d9d"
                         android:textSize="12.3sp" />
 
@@ -149,15 +149,13 @@
                         android:paddingTop="5dp">
 
 
-                        <TextView
+                        <EditText
                             android:id="@+id/reg_pwd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:fontFamily="@font/poppins"
                             android:inputType="textPassword"
-                            android:maxLength="10"
-                            android:maxLines="1"
                             android:textColor="#333232"
                             android:textCursorDrawable="@drawable/cursor_color"
                             android:textSize="15sp" />

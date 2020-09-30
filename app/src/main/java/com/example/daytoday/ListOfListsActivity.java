@@ -25,6 +25,8 @@ import com.example.daytoday.Model.List;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,7 +39,7 @@ public class ListOfListsActivity extends AppCompatActivity {
 
     private FloatingActionButton fab_btn;
     private DatabaseReference lDatabase;
-    //private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     private FirebaseRecyclerOptions<List> options;
     private FirebaseRecyclerAdapter<List, ListOfListsActivity.MyViewHolder> adapter;
@@ -53,7 +55,16 @@ public class ListOfListsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_lists);
 
-        lDatabase = FirebaseDatabase.getInstance().getReference("Shopping List");
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+
+        if (mUser == null ){
+            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+        }
+
+        String uid = mUser.getUid();
+
+        lDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(uid);
         lDatabase.keepSynced(true);
 
         fab_btn = findViewById(R.id.fabLists);

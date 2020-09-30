@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import com.example.daytoday.Model.Item;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +42,7 @@ public class ListActivity extends AppCompatActivity {
 
     private FloatingActionButton fab_btn;
     private DatabaseReference mDatabase;
-    //private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     private FirebaseRecyclerOptions<Item> options;
     private FirebaseRecyclerAdapter<Item,MyViewHolder> adapter;
@@ -69,12 +72,16 @@ public class ListActivity extends AppCompatActivity {
 
         listNameShow.setText(listName);
 
-        //mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
 
-        //FirebaseUser mUser = mAuth.getCurrentUser();
-        //String uid = mUser.getUid();
+        if (mUser == null ){
+            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+        }
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(listKey).child("Items");
+        String uid = mUser.getUid();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(uid).child(listKey).child("Items");
         mDatabase.keepSynced(true);
 
         total = findViewById(R.id.exTotAmount);
@@ -99,7 +106,7 @@ public class ListActivity extends AppCompatActivity {
                 Map<String, Object> updates = new HashMap<String,Object>();
                 updates.put("amount",totAmount);
 
-                FirebaseDatabase.getInstance().getReference("Shopping List").child(listKey).updateChildren(updates);
+                FirebaseDatabase.getInstance().getReference("Shopping List").child(uid).child(listKey).updateChildren(updates);
             }
 
             @Override

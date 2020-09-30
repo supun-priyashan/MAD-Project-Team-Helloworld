@@ -107,12 +107,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="22.3dp"
                         android:fontFamily="@font/poppins"
-                        android:text="@string/uname_lab"
+                        android:text="@string/mail_lab"
                         android:textColor="#9e9d9d"
                         android:textSize="12.3sp" />
 
 
-                    <TextView
+                    <EditText
                         android:id="@+id/login_uname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                         android:paddingTop="5dp">
 
 
-                        <TextView
+                        <EditText
                             android:id="@+id/login_pwd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
