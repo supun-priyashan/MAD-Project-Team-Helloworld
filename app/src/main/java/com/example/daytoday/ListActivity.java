@@ -65,7 +65,7 @@ public class ListActivity extends AppCompatActivity {
         listKey = extras.getString("key");
         listName = extras.getString("listName");
 
-        listNameShow = findViewById(R.id.list_name);
+        listNameShow = findViewById(R.id.shopping_list_name);
 
         listNameShow.setText(listName);
 
@@ -77,7 +77,7 @@ public class ListActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(listKey).child("Items");
         mDatabase.keepSynced(true);
 
-        total = findViewById(R.id.totAmount);
+        total = findViewById(R.id.exTotAmount);
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -110,12 +110,12 @@ public class ListActivity extends AppCompatActivity {
 
         fab_btn = findViewById(R.id.fab);
 
-        recyclerView = findViewById(R.id.recyclerHome);
+        recyclerView = findViewById(R.id.recyclerListItems);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
-        layoutManager.setStackFromEnd(true);
-        layoutManager.setReverseLayout(true);
+        //layoutManager.setStackFromEnd(true);
+        //layoutManager.setReverseLayout(true);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -179,36 +179,10 @@ public class ListActivity extends AppCompatActivity {
 
         dialog.setView(myView);
 
-        final EditText type = myView.findViewById(R.id.edit_type);
-        final EditText amount = myView.findViewById(R.id.edit_amount);
-        final EditText note = myView.findViewById(R.id.edit_note);
-        final Button save = myView.findViewById(R.id.btnSave);
-
-        /*type.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if(s.toString().trim().length()==0){
-                    save.setEnabled(false);
-                } else {
-                    save.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-
-            }
-        });*/
+        final EditText type = myView.findViewById(R.id.edit_item_type);
+        final EditText amount = myView.findViewById(R.id.edit_item_amount);
+        final EditText note = myView.findViewById(R.id.edit_item_note);
+        final Button save = myView.findViewById(R.id.btnAddItemSave);
 
         save.setOnClickListener(new OnClickListener() {
             @Override
@@ -336,7 +310,7 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-        dialog.show();;
+        dialog.show();
 
     }
 
@@ -356,17 +330,17 @@ public class ListActivity extends AppCompatActivity {
         }
 
         public void setType(String type){
-            TextView mType = myView.findViewById(R.id.type);
+            TextView mType = myView.findViewById(R.id.list_item_type);
             mType.setText(type);
         }
 
         public void setNote(String note){
-            TextView mNote = myView.findViewById(R.id.note);
+            TextView mNote = myView.findViewById(R.id.list_item_qty);
             mNote.setText(note);
         }
 
         public void setDate(String date){
-            TextView mDate = myView.findViewById(R.id.date);
+            TextView mDate = myView.findViewById(R.id.list_item_date);
             mDate.setText(date);
         }
 
@@ -376,7 +350,7 @@ public class ListActivity extends AppCompatActivity {
             DecimalFormat decimalFormat = new DecimalFormat("#0.00");
             String nAmount = decimalFormat.format(amount);
 
-            TextView mAmount = myView.findViewById(R.id.amount);
+            TextView mAmount = myView.findViewById(R.id.list_item_amount);
             mAmount.setText(String.valueOf(nAmount));
         }
     }

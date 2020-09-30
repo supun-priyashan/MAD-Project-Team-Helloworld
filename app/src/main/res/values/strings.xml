@@ -27,4 +27,11 @@
     <string name="del_btn_content_desc">Delete</string>
     <string name="ed_btn_content_desc">Edit</string>
     <string name="edit_list_title">Edit List</string>
+    <string name="reg_title">Register</string>
+    <string name="reg_greeting">Welcome!!!</string>
+    <string name="signup_btn_lab">Sign Up</string>
+    <string name="uname_lab">Username</string>
+    <string name="pwd_lab">Password</string>
+    <string name="login_title">Login</string>
+    <string name="login_greeting">Hello</string>
 </resources>
