@@ -24,4 +24,23 @@
     <string name="list_desc_lab">List Description</string>
     <string name="list_name_def">List</string>
     <string name="list_desc_def">desc</string>
+
+
+    //expense
+
+    <string name="total_expense">Total Expense</string>
+    <string name="add_expense_title">Add Expense</string>
+    <string name="update_expese_title">Update Expense</string>
+
+    <string name="del_btn_content_desc">Delete</string>
+    <string name="ed_btn_content_desc">Edit</string>
+    <string name="edit_list_title">Edit List</string>
+    <string name="reg_title">Register</string>
+    <string name="reg_greeting">Welcome!!!</string>
+    <string name="signup_btn_lab">Sign Up</string>
+    <string name="uname_lab">Username</string>
+    <string name="pwd_lab">Password</string>
+    <string name="login_title">Login</string>
+    <string name="login_greeting">Hello</string>
+    <string name="mail_lab">Email</string>
 </resources>

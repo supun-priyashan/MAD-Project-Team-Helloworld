@@ -20,7 +20,7 @@
                 android:background="@color/colorAccent"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/edit_item_title"
+                android:text="@string/edit_list_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/white" />
 
@@ -44,7 +44,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
                         android:padding="5dp"
-                        android:text="@string/item_name_label"
+                        android:text="@string/list_name_lab"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 </RelativeLayout>
@@ -55,10 +55,16 @@
                     android:layout_weight="2">
 
                     <EditText
-                        android:id="@+id/edit_type_upd"
+                        android:id="@+id/edit_list_name_upd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"/>
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:inputType="text|textAutoComplete" />
 
                 </RelativeLayout>
 
@@ -84,7 +90,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
                         android:padding="5dp"
-                        android:text="@string/qty_lab"
+                        android:text="@string/list_desc_lab"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 </RelativeLayout>
@@ -95,26 +101,7 @@
                     android:layout_weight="2">
 
                     <EditText
-                        android:id="@+id/edit_note_upd"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"/>
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <TextView
+                        android:id="@+id/edit_list_desc_upd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -123,22 +110,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        android:padding="5dp"
-                        android:text="@string/expected_cost_lab"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2">
-
-                    <EditText
-                        android:id="@+id/edit_amount_upd"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"/>
+                        android:inputType="text|textAutoComplete" />
 
                 </RelativeLayout>
 
@@ -155,29 +127,7 @@
                     android:layout_weight="1">
 
                     <Button
-                        android:id="@+id/btnDelete"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/colorAccent"
-                        android:text="@string/delete_btn_lab"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@android:color/white" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <Button
-                        android:id="@+id/btnSaveUpd"
+                        android:id="@+id/btnSaveListUpd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"

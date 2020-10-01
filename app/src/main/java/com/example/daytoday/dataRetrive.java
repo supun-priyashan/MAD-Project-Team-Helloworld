@@ -2,6 +2,7 @@ package com.example.daytoday;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class dataRetrive extends RecyclerView.ViewHolder {
 
     TextView amountR,typeR,noteR;
-    ImageView btnUpdate1,btnDelete;
+
+    LinearLayout lay;
 
 
     public dataRetrive(@NonNull View itemView) {
@@ -21,8 +23,9 @@ public class dataRetrive extends RecyclerView.ViewHolder {
         typeR = itemView.findViewById(R.id.type_Re);
         noteR = itemView.findViewById(R.id.note_Re);
 
-        btnUpdate1 = itemView.findViewById(R.id.editImage);
-        btnDelete = itemView.findViewById(R.id.deleteImage);
+        lay = itemView.findViewById(R.id.holderLinear);
+
+
 
 
     }

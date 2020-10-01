@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistrationActivity">
+    android:background="@color/white_back"
+    tools:context=".LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +24,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="32dp"
                 android:gravity="center_horizontal"
-                android:text="@string/reg_title"
+                android:text="@string/login_title"
                 android:textColor="#333232"
                 android:textSize="30sp" />
 
@@ -40,7 +41,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="7.3dp"
                     android:background="@drawable/small_cicle"
-                    android:fontFamily="@font/poppins" />
+                    android:fontFamily="@font/poppins"/>
 
             </LinearLayout>
 
@@ -96,7 +97,7 @@
                         android:layout_marginTop="20.3dp"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_horizontal"
-                        android:text="@string/reg_greeting"
+                        android:text="Hello!!"
                         android:textColor="#333232"
                         android:textSize="16.7sp" />
 
@@ -112,12 +113,12 @@
 
 
                     <EditText
-                        android:id="@+id/reg_uname"
+                        android:id="@+id/login_uname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/poppins"
-                        android:inputType="textEmailAddress"
+                        android:maxLength="10"
                         android:maxLines="1"
                         android:paddingTop="5dp"
                         android:textColorHint="#333232"
@@ -150,12 +151,14 @@
 
 
                         <EditText
-                            android:id="@+id/reg_pwd"
+                            android:id="@+id/login_pwd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:fontFamily="@font/poppins"
                             android:inputType="textPassword"
+                            android:maxLength="10"
+                            android:maxLines="1"
                             android:textColor="#333232"
                             android:textCursorDrawable="@drawable/cursor_color"
                             android:textSize="15sp" />
@@ -191,12 +194,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center"
-                android:text="@string/signup_btn_lab"
+                android:text="Login"
                 android:textColor="#ffffff"
                 android:textSize="15sp" />
 
@@ -210,7 +214,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -223,20 +226,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
                 android:gravity="center_horizontal"
-                android:text="Already Registered?"
+                android:text="New User?"
                 android:textColor="#333232"
-                android:textSize="13.3sp" />
+                android:textSize="13.3sp"
+                android:fontFamily="@font/poppins"/>
 
             <TextView
-                android:id="@+id/login_in_signup"
+                android:id="@+id/signup_in_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:fontFamily="@font/poppins"
                 android:gravity="center_horizontal"
-                android:text="Log In"
+                android:text="Sign Up"
                 android:textColor="#38b5f2"
                 android:textSize="13.3sp" />
 

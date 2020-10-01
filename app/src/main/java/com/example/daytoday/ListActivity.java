@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import com.example.daytoday.Model.Item;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,23 +35,28 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ListActivity extends AppCompatActivity {
 
     private FloatingActionButton fab_btn;
     private DatabaseReference mDatabase;
-    //private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     private FirebaseRecyclerOptions<Item> options;
     private FirebaseRecyclerAdapter<Item,MyViewHolder> adapter;
 
     private RecyclerView recyclerView;
     private TextView total;
+    private TextView listNameShow;
 
     private String type;
     private float amount;
     private  String note;
     private  String postKey;
+    private String listKey;
+    private String listName;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -56,15 +64,27 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        //mAuth = FirebaseAuth.getInstance();
+        Bundle extras = getIntent().getExtras();
+        listKey = extras.getString("key");
+        listName = extras.getString("listName");
 
-        //FirebaseUser mUser = mAuth.getCurrentUser();
-        //String uid = mUser.getUid();
+        listNameShow = findViewById(R.id.shopping_list_name);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Shopping List");
+        listNameShow.setText(listName);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+
+        if (mUser == null ){
+            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+        }
+
+        String uid = mUser.getUid();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(uid).child(listKey).child("Items");
         mDatabase.keepSynced(true);
 
-        total = findViewById(R.id.totAmount);
+        total = findViewById(R.id.exTotAmount);
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -78,11 +98,15 @@ public class ListActivity extends AppCompatActivity {
                     totAmount += item.getAmount();
                 }
 
-                DecimalFormat decimalFormat = new DecimalFormat("#.00");
+                DecimalFormat decimalFormat = new DecimalFormat("#0.00");
                 String fTotAmount = decimalFormat.format(totAmount);
 
                 total.setText(String.valueOf(fTotAmount));
 
+                Map<String, Object> updates = new HashMap<String,Object>();
+                updates.put("amount",totAmount);
+
+                FirebaseDatabase.getInstance().getReference("Shopping List").child(uid).child(listKey).updateChildren(updates);
             }
 
             @Override
@@ -93,12 +117,12 @@ public class ListActivity extends AppCompatActivity {
 
         fab_btn = findViewById(R.id.fab);
 
-        recyclerView = findViewById(R.id.recyclerHome);
+        recyclerView = findViewById(R.id.recyclerListItems);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
-        layoutManager.setStackFromEnd(true);
-        layoutManager.setReverseLayout(true);
+        //layoutManager.setStackFromEnd(true);
+        //layoutManager.setReverseLayout(true);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -112,8 +136,7 @@ public class ListActivity extends AppCompatActivity {
         });
 
         options = new FirebaseRecyclerOptions.Builder<Item>()
-                .setQuery(FirebaseDatabase.getInstance().getReference()
-                        .child("Shopping List"),Item.class).build();
+                .setQuery(mDatabase,Item.class).build();
 
         adapter = new FirebaseRecyclerAdapter<Item, MyViewHolder>(options) {
             @Override
@@ -154,7 +177,7 @@ public class ListActivity extends AppCompatActivity {
 
         AlertDialog.Builder myDialog = new AlertDialog.Builder(ListActivity.this);
         LayoutInflater inflater = LayoutInflater.from(ListActivity.this);
-        View myView = inflater.inflate(R.layout.input_data,null);
+        View myView = inflater.inflate(R.layout.input_item,null);
 
         final AlertDialog dialog = myDialog.create();
 
@@ -163,36 +186,10 @@ public class ListActivity extends AppCompatActivity {
 
         dialog.setView(myView);
 
-        final EditText type = myView.findViewById(R.id.edit_type);
-        final EditText amount = myView.findViewById(R.id.edit_amount);
-        final EditText note = myView.findViewById(R.id.edit_note);
-        final Button save = myView.findViewById(R.id.btnSave);
-
-        /*type.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if(s.toString().trim().length()==0){
-                    save.setEnabled(false);
-                } else {
-                    save.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-
-            }
-        });*/
+        final EditText type = myView.findViewById(R.id.edit_item_type);
+        final EditText amount = myView.findViewById(R.id.edit_item_amount);
+        final EditText note = myView.findViewById(R.id.edit_item_note);
+        final Button save = myView.findViewById(R.id.btnAddItemSave);
 
         save.setOnClickListener(new OnClickListener() {
             @Override
@@ -217,12 +214,12 @@ public class ListActivity extends AppCompatActivity {
                     return;
                 }
 
-                float amint = Float.parseFloat(mAmount);
+                float amFloat = Float.parseFloat(mAmount);
 
                 String id = mDatabase.push().getKey();
                 String date = DateFormat.getDateInstance().format(new Date());
 
-                Item item = new Item(mType,amint,mNote,date,id);
+                Item item = new Item(mType,amFloat,mNote,date,id);
 
                 mDatabase.child(id).setValue(item);
 
@@ -244,7 +241,7 @@ public class ListActivity extends AppCompatActivity {
 
         LayoutInflater inflater = LayoutInflater.from(ListActivity.this);
 
-        View mView = inflater.inflate(R.layout.update_data,null);
+        View mView = inflater.inflate(R.layout.update_item,null);
 
         final AlertDialog dialog = myDialog.create();
 
@@ -320,7 +317,7 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-        dialog.show();;
+        dialog.show();
 
     }
 
@@ -340,27 +337,27 @@ public class ListActivity extends AppCompatActivity {
         }
 
         public void setType(String type){
-            TextView mType = myView.findViewById(R.id.type);
+            TextView mType = myView.findViewById(R.id.list_item_type);
             mType.setText(type);
         }
 
         public void setNote(String note){
-            TextView mNote = myView.findViewById(R.id.note);
+            TextView mNote = myView.findViewById(R.id.list_item_qty);
             mNote.setText(note);
         }
 
         public void setDate(String date){
-            TextView mDate = myView.findViewById(R.id.date);
+            TextView mDate = myView.findViewById(R.id.list_item_date);
             mDate.setText(date);
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         public  void setAmount(float amount){
 
-            DecimalFormat decimalFormat = new DecimalFormat("#.00");
+            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
             String nAmount = decimalFormat.format(amount);
 
-            TextView mAmount = myView.findViewById(R.id.amount);
+            TextView mAmount = myView.findViewById(R.id.list_item_amount);
             mAmount.setText(String.valueOf(nAmount));
         }
     }
