@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     private TextView mEmail;
@@ -36,7 +38,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() !=null ){
-            startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
+            //startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
         }
 
         mEmail = findViewById(R.id.reg_uname);
@@ -80,7 +82,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"Registration Successful",Toast.LENGTH_SHORT).show();
                         }else{
 
-                            Toast.makeText(getApplicationContext(),task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), Objects.requireNonNull(task.getException()).getLocalizedMessage(),Toast.LENGTH_SHORT).show();
                         }
                         progress.dismiss();
                     }
@@ -96,7 +98,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() !=null ){
-            startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
+            mAuth.signOut();
         }
     }
 }

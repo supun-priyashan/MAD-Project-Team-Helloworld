@@ -1,13 +1,19 @@
 package com.example.daytoday;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,6 +24,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +46,7 @@ import java.util.Map;
 public class ListOfListsActivity extends AppCompatActivity {
 
     private FloatingActionButton fab_btn;
+    private ImageView menu_btn;
     private DatabaseReference lDatabase;
     private FirebaseAuth mAuth;
 
@@ -68,6 +77,7 @@ public class ListOfListsActivity extends AppCompatActivity {
         lDatabase.keepSynced(true);
 
         fab_btn = findViewById(R.id.fabLists);
+        menu_btn = findViewById(R.id.menu_btn);
         recyclerView = findViewById(R.id.recyclerLists);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -77,6 +87,14 @@ public class ListOfListsActivity extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
+
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
 
         fab_btn.setOnClickListener(new View.OnClickListener(){
 
@@ -202,6 +220,7 @@ public class ListOfListsActivity extends AppCompatActivity {
         });
 
         dialog.show();
+        dialog.getWindow().setGravity(Gravity.LEFT);
     }
 
     public static class MyViewHolder extends  RecyclerView.ViewHolder{

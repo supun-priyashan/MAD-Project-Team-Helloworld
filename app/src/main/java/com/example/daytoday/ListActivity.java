@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ import java.util.Map;
 public class ListActivity extends AppCompatActivity {
 
     private FloatingActionButton fab_btn;
+    private ImageView menu_btn;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
@@ -117,6 +119,8 @@ public class ListActivity extends AppCompatActivity {
 
         fab_btn = findViewById(R.id.fab);
 
+        menu_btn = findViewById(R.id.menu_btn);
+
         recyclerView = findViewById(R.id.recyclerListItems);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -132,6 +136,14 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 customDialog();
+            }
+        });
+
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
             }
         });
 
