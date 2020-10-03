@@ -92,16 +92,9 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                float totAmount = 0;
+                float totAmount = calcTotAmount(snapshot);
 
-                for(DataSnapshot snap:snapshot.getChildren()){
-
-                    Item item = snap.getValue(Item.class);
-                    totAmount += item.getAmount();
-                }
-
-                DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-                String fTotAmount = decimalFormat.format(totAmount);
+                String fTotAmount = formatDecimal(totAmount);
 
                 total.setText(String.valueOf(fTotAmount));
 
@@ -185,7 +178,7 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
-    private void customDialog(){
+    public void customDialog(){
 
         AlertDialog.Builder myDialog = new AlertDialog.Builder(ListActivity.this);
         LayoutInflater inflater = LayoutInflater.from(ListActivity.this);
@@ -242,6 +235,24 @@ public class ListActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    public float calcTotAmount(DataSnapshot snapshot){
+        float totAmount = 0;
+
+        for(DataSnapshot snap:snapshot.getChildren()){
+            Item item = snap.getValue(Item.class);
+            totAmount += item.getAmount();
+        }
+
+        return totAmount;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public String formatDecimal(float val){
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+        String a = decimalFormat.format(val);
+        return  a;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
