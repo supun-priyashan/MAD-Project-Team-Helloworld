@@ -67,20 +67,20 @@
                                 android:text="00.00"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
                         </RelativeLayout>
-
-
-
                     </LinearLayout>
-
-
                 </androidx.cardview.widget.CardView>
-
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/recyclerView">
+                android:id="@+id/recyclerView"
+                android:layout_height="455dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp">
 
             </androidx.recyclerview.widget.RecyclerView>
 
