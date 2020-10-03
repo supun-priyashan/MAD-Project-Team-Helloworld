@@ -38,7 +38,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() !=null ){
-            //startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
+            startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
         }
 
         mEmail = findViewById(R.id.reg_uname);
@@ -78,7 +78,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
+                            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                             Toast.makeText(getApplicationContext(),"Registration Successful",Toast.LENGTH_SHORT).show();
                         }else{
 

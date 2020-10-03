@@ -11,29 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".updateData" />
-        <activity android:name=".ExpenseManager2" />
-        <activity android:name=".ExpenseManager" />
-        <activity android:name=".updateDebt" />
-        <activity android:name=".LoginActivity"/>
-
-
-        <activity android:name=".RegistrationActivity" />
-
-        <activity android:name=".DebtListActivity">
+        <activity android:name=".HomeActivity">
+        <activity android:name=".ListOfListsActivity"></activity>
+        <activity android:name=".ListActivity" />
+        <activity android:name=".ExpenseManage2" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
-
-        <activity android:name=".AddDebtActivity" />
-        <activity android:name=".ListOfListsActivity"></activity>
-        <activity android:name=".ListActivity" />
-
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".DebtListActivity" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

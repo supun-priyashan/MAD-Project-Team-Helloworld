@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() !=null ){
-            startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
+            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
         }
 
         mEmail = findViewById(R.id.login_uname);
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
+                                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                                     Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
                                 }else{
                                     Toast.makeText(getApplicationContext(),task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
