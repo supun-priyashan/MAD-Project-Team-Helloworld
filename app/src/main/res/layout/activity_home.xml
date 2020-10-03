@@ -49,7 +49,6 @@
                     android:layout_height="match_parent">
 
                     <FrameLayout
-                        android:id="@+id/income_frame"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginRight="20dp"
@@ -60,12 +59,11 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:layout_gravity="center"
-                            android:contentDescription="TODO"
-                            app:srcCompat="@drawable/income" />
+                            app:srcCompat="@drawable/income"
+                            android:contentDescription="TODO" />
                     </FrameLayout>
 
                     <FrameLayout
-                        android:id="@+id/expense_frame"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginLeft="20dp"
@@ -113,7 +111,6 @@
                     android:layout_height="match_parent">
 
                     <FrameLayout
-                        android:id="@+id/list_frame"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginRight="20dp"
@@ -128,12 +125,11 @@
                     </FrameLayout>
 
                     <FrameLayout
-                        android:id="@+id/debt_frame"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/blue_border_rounded_cornwe"
-                        android:elevation="100dp">
+                        >
 
                         <ImageView
                             android:id="@+id/imageView8"
