@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,8 @@ import com.example.daytoday.Model.Item;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,8 +42,9 @@ import java.util.Map;
 public class ListActivity extends AppCompatActivity {
 
     private FloatingActionButton fab_btn;
+    private ImageView menu_btn;
     private DatabaseReference mDatabase;
-    //private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     private FirebaseRecyclerOptions<Item> options;
     private FirebaseRecyclerAdapter<Item,MyViewHolder> adapter;
@@ -65,19 +70,23 @@ public class ListActivity extends AppCompatActivity {
         listKey = extras.getString("key");
         listName = extras.getString("listName");
 
-        listNameShow = findViewById(R.id.list_name);
+        listNameShow = findViewById(R.id.shopping_list_name);
 
         listNameShow.setText(listName);
 
-        //mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
 
-        //FirebaseUser mUser = mAuth.getCurrentUser();
-        //String uid = mUser.getUid();
+        if (mUser == null ){
+            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+        }
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(listKey).child("Items");
+        String uid = mUser.getUid();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(uid).child(listKey).child("Items");
         mDatabase.keepSynced(true);
 
-        total = findViewById(R.id.totAmount);
+        total = findViewById(R.id.exTotAmount);
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -99,7 +108,7 @@ public class ListActivity extends AppCompatActivity {
                 Map<String, Object> updates = new HashMap<String,Object>();
                 updates.put("amount",totAmount);
 
-                FirebaseDatabase.getInstance().getReference("Shopping List").child(listKey).updateChildren(updates);
+                FirebaseDatabase.getInstance().getReference("Shopping List").child(uid).child(listKey).updateChildren(updates);
             }
 
             @Override
@@ -110,12 +119,14 @@ public class ListActivity extends AppCompatActivity {
 
         fab_btn = findViewById(R.id.fab);
 
-        recyclerView = findViewById(R.id.recyclerHome);
+        menu_btn = findViewById(R.id.menu_btn);
+
+        recyclerView = findViewById(R.id.recyclerListItems);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
-        layoutManager.setStackFromEnd(true);
-        layoutManager.setReverseLayout(true);
+        //layoutManager.setStackFromEnd(true);
+        //layoutManager.setReverseLayout(true);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -125,6 +136,14 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 customDialog();
+            }
+        });
+
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
             }
         });
 
@@ -179,36 +198,10 @@ public class ListActivity extends AppCompatActivity {
 
         dialog.setView(myView);
 
-        final EditText type = myView.findViewById(R.id.edit_type);
-        final EditText amount = myView.findViewById(R.id.edit_amount);
-        final EditText note = myView.findViewById(R.id.edit_note);
-        final Button save = myView.findViewById(R.id.btnSave);
-
-        /*type.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if(s.toString().trim().length()==0){
-                    save.setEnabled(false);
-                } else {
-                    save.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-
-            }
-        });*/
+        final EditText type = myView.findViewById(R.id.edit_item_type);
+        final EditText amount = myView.findViewById(R.id.edit_item_amount);
+        final EditText note = myView.findViewById(R.id.edit_item_note);
+        final Button save = myView.findViewById(R.id.btnAddItemSave);
 
         save.setOnClickListener(new OnClickListener() {
             @Override
@@ -336,7 +329,7 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-        dialog.show();;
+        dialog.show();
 
     }
 
@@ -356,17 +349,17 @@ public class ListActivity extends AppCompatActivity {
         }
 
         public void setType(String type){
-            TextView mType = myView.findViewById(R.id.type);
+            TextView mType = myView.findViewById(R.id.list_item_type);
             mType.setText(type);
         }
 
         public void setNote(String note){
-            TextView mNote = myView.findViewById(R.id.note);
+            TextView mNote = myView.findViewById(R.id.list_item_qty);
             mNote.setText(note);
         }
 
         public void setDate(String date){
-            TextView mDate = myView.findViewById(R.id.date);
+            TextView mDate = myView.findViewById(R.id.list_item_date);
             mDate.setText(date);
         }
 
@@ -376,7 +369,7 @@ public class ListActivity extends AppCompatActivity {
             DecimalFormat decimalFormat = new DecimalFormat("#0.00");
             String nAmount = decimalFormat.format(amount);
 
-            TextView mAmount = myView.findViewById(R.id.amount);
+            TextView mAmount = myView.findViewById(R.id.list_item_amount);
             mAmount.setText(String.valueOf(nAmount));
         }
     }

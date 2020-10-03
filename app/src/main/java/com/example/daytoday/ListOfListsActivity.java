@@ -1,31 +1,40 @@
 package com.example.daytoday;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
+import android.graphics.Rect;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.daytoday.Model.Item;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.daytoday.Model.List;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,8 +46,9 @@ import java.util.Map;
 public class ListOfListsActivity extends AppCompatActivity {
 
     private FloatingActionButton fab_btn;
+    private ImageView menu_btn;
     private DatabaseReference lDatabase;
-    //private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     private FirebaseRecyclerOptions<List> options;
     private FirebaseRecyclerAdapter<List, ListOfListsActivity.MyViewHolder> adapter;
@@ -54,19 +64,37 @@ public class ListOfListsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_lists);
 
-        lDatabase = FirebaseDatabase.getInstance().getReference("Shopping List");
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+
+        if (mUser == null ){
+            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+        }
+
+        String uid = mUser.getUid();
+
+        lDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(uid);
         lDatabase.keepSynced(true);
 
         fab_btn = findViewById(R.id.fabLists);
+        menu_btn = findViewById(R.id.menu_btn);
         recyclerView = findViewById(R.id.recyclerLists);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
-        layoutManager.setStackFromEnd(true);
-        layoutManager.setReverseLayout(true);
+        //layoutManager.setStackFromEnd(true);
+        //layoutManager.setReverseLayout(true);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
+
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
 
         fab_btn.setOnClickListener(new View.OnClickListener(){
 
@@ -158,33 +186,7 @@ public class ListOfListsActivity extends AppCompatActivity {
 
         final EditText type = myView.findViewById(R.id.edit_list_name);
         final EditText note = myView.findViewById(R.id.edit_list_desc);
-        final Button save = myView.findViewById(R.id.btnSave);
-
-        /*type.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if(s.toString().trim().length()==0){
-                    save.setEnabled(false);
-                } else {
-                    save.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-
-            }
-        });*/
+        final Button save = myView.findViewById(R.id.btnAddListSave);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,6 +220,7 @@ public class ListOfListsActivity extends AppCompatActivity {
         });
 
         dialog.show();
+        dialog.getWindow().setGravity(Gravity.LEFT);
     }
 
     public static class MyViewHolder extends  RecyclerView.ViewHolder{
@@ -233,17 +236,17 @@ public class ListOfListsActivity extends AppCompatActivity {
         }
 
         public void setType(String type){
-            TextView mType = myView.findViewById(R.id.listType);
+            TextView mType = myView.findViewById(R.id.list_type);
             mType.setText(type);
         }
 
         public void setNote(String note){
-            TextView mNote = myView.findViewById(R.id.listNote);
+            TextView mNote = myView.findViewById(R.id.list_desc);
             mNote.setText(note);
         }
 
         public void setDate(String date){
-            TextView mDate = myView.findViewById(R.id.listDate);
+            TextView mDate = myView.findViewById(R.id.list_date);
             mDate.setText(date);
         }
 
@@ -253,7 +256,7 @@ public class ListOfListsActivity extends AppCompatActivity {
             DecimalFormat decimalFormat = new DecimalFormat("#0.00");
             String nAmount = decimalFormat.format(amount);
 
-            TextView mAmount = myView.findViewById(R.id.listAmount);
+            TextView mAmount = myView.findViewById(R.id.list_amount);
             mAmount.setText(String.valueOf(nAmount));
         }
     }
@@ -320,7 +323,7 @@ public class ListOfListsActivity extends AppCompatActivity {
             }
         });
 
-        dialog.show();;
+        dialog.show();
 
     }
 
@@ -333,4 +336,5 @@ public class ListOfListsActivity extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
+
 }

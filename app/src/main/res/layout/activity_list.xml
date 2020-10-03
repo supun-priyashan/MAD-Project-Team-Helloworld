@@ -54,7 +54,7 @@
                         android:layout_weight="1">
 
                         <TextView
-                            android:id="@+id/totAmount"
+                            android:id="@+id/exTotAmount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/list_tot_amount_def"
@@ -68,7 +68,7 @@
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerHome"
+            android:id="@+id/recyclerListItems"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="10dp">
