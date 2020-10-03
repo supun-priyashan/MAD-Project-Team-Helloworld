@@ -51,7 +51,6 @@
                 android:orientation="vertical">
 
                 <FrameLayout
-                    android:id="@+id/half_circle"
                     android:layout_width="50dp"
                     android:layout_height="100dp"
                     android:layout_alignParentRight="true"
@@ -166,7 +165,6 @@
                     </RelativeLayout>
 
                     <View
-                        android:id="@+id/view"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
