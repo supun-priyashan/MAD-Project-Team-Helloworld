@@ -54,7 +54,6 @@
                     android:orientation="vertical">
 
                     <View
-                        android:id="@+id/view"
                         android:layout_width="95dp"
                         android:layout_height="105dp"
                         android:background="@drawable/ic_shopping" />
@@ -91,7 +90,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerLists"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="475dp"
                 android:paddingTop="10dp">
 
             </androidx.recyclerview.widget.RecyclerView>
@@ -103,12 +102,106 @@
             android:id="@+id/fabLists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
+            android:layout_gravity="bottom|center"
             android:layout_margin="15dp"
             android:backgroundTint="#2ECBDA"
+            android:scaleX="1.25"
+            android:scaleY="1.25"
             app:backgroundTint="@color/sky_blue"
+            app:elevation="30dp"
             app:fabSize="normal"
             app:srcCompat="@drawable/ic_action_name" />
+
+        <LinearLayout
+            android:id="@+id/holderLinear"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            android:elevation="20dp"
+            android:orientation="vertical"
+            android:padding="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/income_nav"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="20dp"
+                    android:layout_marginLeft="25dp">
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        app:srcCompat="@drawable/baseline_trending_up_black_24"
+                        app:tint="@color/nav_tint" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/expense_nav"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="30dp">
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        app:srcCompat="@drawable/baseline_trending_down_white_24"
+                        app:tint="@color/nav_tint" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="40dp" />
+
+                <RelativeLayout
+                    android:id="@+id/debt_nav"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="40dp">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        app:srcCompat="@drawable/baseline_attach_money_black_24"
+                        app:tint="@color/nav_tint" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/todolist_nav"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="30dp">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        app:srcCompat="@drawable/baseline_grading_black_24"
+                        app:tint="@color/nav_tint" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -22,7 +22,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
@@ -86,7 +85,6 @@
                     android:layout_marginBottom="20dp">
 
                     <TextView
-                        android:id="@+id/textView4"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
@@ -96,7 +94,6 @@
                         android:textColor="@color/white_back" />
 
                     <TextView
-                        android:id="@+id/textView5"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -129,7 +126,7 @@
                         android:layout_height="100dp"
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/blue_border_rounded_cornwe"
-                        >
+                        android:elevation="100dp">
 
                         <ImageView
                             android:id="@+id/imageView8"
@@ -147,7 +144,6 @@
                     android:layout_marginTop="10dp">
 
                     <TextView
-                        android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -156,7 +152,6 @@
                         android:textColor="@color/white_back" />
 
                     <TextView
-                        android:id="@+id/textView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
