@@ -31,6 +31,9 @@
     <string name="total_expense">Total Expense</string>
     <string name="add_expense_title">Add Expense</string>
     <string name="update_expese_title">Update Expense</string>
+    <string name="update_btn_expense">Update</string>
+    <string name="delete_btn_expense">Delete</string>
+    <string name="btn_save_expense">Save</string>
 
     <string name="del_btn_content_desc">Delete</string>
     <string name="ed_btn_content_desc">Edit</string>
