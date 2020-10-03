@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,12 +35,15 @@ public class ExpenseManage2 extends AppCompatActivity {
 
     private FirebaseRecyclerOptions<Data> options;
     private FirebaseRecyclerAdapter<Data, dataRetrive> adapter;
+    private FirebaseAuth mAuth;
 
     private RecyclerView recyclerView;
 
     private TextView total;
 
     private FloatingActionButton fabButton;
+
+    private RelativeLayout income_nav,expense_nav,debt_nav,todolist_nav;
 
     DatabaseReference reff;
     Data data;
@@ -52,6 +58,15 @@ public class ExpenseManage2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense2);
 
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+
+        if (mUser == null ){
+            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+        }
+
+        String uid = mUser.getUid();
+
         Data data;
 
         recyclerView = findViewById(R.id.receive);
@@ -62,7 +77,10 @@ public class ExpenseManage2 extends AppCompatActivity {
 
         fabButton = findViewById(R.id.fab);
 
-        reff= FirebaseDatabase.getInstance().getReference().child("Expense");
+
+
+
+        reff= FirebaseDatabase.getInstance().getReference("Expense").child(uid);
         reff.keepSynced(true);
 
         //Total expense counter
@@ -99,8 +117,8 @@ public class ExpenseManage2 extends AppCompatActivity {
         });
 
         options = new FirebaseRecyclerOptions.Builder<Data>()
-                .setQuery(FirebaseDatabase.getInstance().getReference()
-                        .child("Expense"), Data.class).build();
+                .setQuery(FirebaseDatabase.getInstance().getReference("Expense")
+                        .child(uid), Data.class).build();
 
         adapter = new FirebaseRecyclerAdapter<Data, dataRetrive>(options) {
             @Override
@@ -134,6 +152,37 @@ public class ExpenseManage2 extends AppCompatActivity {
 
         };
         recyclerView.setAdapter(adapter);
+
+        //navigation
+
+        income_nav = findViewById(R.id.income_nav);
+        expense_nav = findViewById(R.id.expense_nav);
+        debt_nav = findViewById(R.id.debt_nav);
+        todolist_nav = findViewById(R.id.todolist_nav);
+
+        income_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //startActivity(new Intent(ExpenseManage2.this,DebtListActivity.class) );
+            }
+        });
+
+        debt_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ExpenseManage2.this,DebtListActivity.class) );
+            }
+        });
+
+
+        todolist_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ExpenseManage2.this,DebtListActivity.class) );
+            }
+        });
+
+
     }
 
     @Override

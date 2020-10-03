@@ -7,4 +7,5 @@
     <color name="text_white">#FFFFFF</color>
     <color name="blueish_shadows">#95A8A8</color>
     <color name="white_back">#FFFFFF</color>
+    <color name="nav_tint">#5C5C5C</color>
 </resources>
