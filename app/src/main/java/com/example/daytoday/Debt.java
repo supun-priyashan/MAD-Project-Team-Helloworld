@@ -1,24 +1,32 @@
 package com.example.daytoday;
 
+import android.widget.TextView;
+
 public class Debt {
 
 
     private String name;
-    private String date;
+    private String duedate;
     private Float amount;
     private String discription;
 
-    public Debt() {
-    }
+public Debt(){
 
-    public Debt(String name, String date, Float amount, String discription) {
+}
+    public Debt(String name, String duedate, Float amount, String discription) {
         this.name = name;
-        this.date = date;
+        this.duedate = duedate;
         this.amount = amount;
         this.discription = discription;
     }
 
+    public String getDuedate() {
+        return duedate;
+    }
 
+    public void setDuedate(String duedate) {
+        this.duedate = duedate;
+    }
 
     public String getName() {
         return name;
@@ -26,14 +34,6 @@ public class Debt {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public float getAmount() {
