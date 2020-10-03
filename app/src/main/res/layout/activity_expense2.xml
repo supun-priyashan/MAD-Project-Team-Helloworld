@@ -3,7 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="false"
+    android:layout_alignParentTop="false"
+    android:layout_alignParentRight="false"
+    android:layout_alignParentBottom="false">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -26,13 +30,14 @@
                     android:layout_margin="10dp"
                     android:elevation="10dp"
                     android:padding="10dp"
-                    app:cardElevation="10dp" tools:targetApi="lollipop">
+                    app:cardElevation="10dp"
+                    tools:targetApi="lollipop">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:baselineAligned="false">
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
 
                         <RelativeLayout
                             android:layout_width="0dp"
@@ -66,29 +71,128 @@
             </RelativeLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/receive"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="1dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/receive"
+                android:layout_width="match_parent"
+                android:layout_height="455dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
 
-</LinearLayout>
+        </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
             android:layout_margin="15dp"
-            app:fabSize="normal"
             android:backgroundTint="#FFC60505"
-            android:id="@+id/fab"
-            android:src="@drawable/ic_action_name"/>
+            android:scaleX="1.25"
+            android:scaleY="1.25"
+            android:src="@drawable/ic_action_name"
+            app:elevation="30dp"
+            app:fabSize="auto" />
+
+        <LinearLayout
+            android:id="@+id/holderLinear"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:padding="2dp"
+            android:elevation="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/income_nav"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="20dp"
+                    android:layout_marginLeft="25dp">
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:tint="@color/nav_tint"
+                        app:srcCompat="@drawable/baseline_trending_up_black_24" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/expense_nav"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="30dp">
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:tint="@color/nav_tint"
+                        app:srcCompat="@drawable/baseline_trending_down_white_24" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="40dp" />
+
+                <RelativeLayout
+                    android:id="@+id/debt_nav"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="40dp">
+
+                    <ImageView
+                        android:id="@+id/imageView10"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:tint="@color/nav_tint"
+                        app:srcCompat="@drawable/baseline_attach_money_black_24" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/todolist_nav"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="30dp">
+
+                    <ImageView
+                        android:id="@+id/imageView11"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:tint="@color/nav_tint"
+                        app:srcCompat="@drawable/baseline_grading_black_24" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
