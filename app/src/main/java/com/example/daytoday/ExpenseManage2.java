@@ -3,6 +3,7 @@ package com.example.daytoday;
 import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,7 @@ public class ExpenseManage2 extends AppCompatActivity {
 
         fabButton = findViewById(R.id.fab);
 
-        reff= FirebaseDatabase.getInstance().getReference().child("Data");
+        reff= FirebaseDatabase.getInstance().getReference().child("Expense");
         reff.keepSynced(true);
 
         //Total expense counter
@@ -99,7 +100,7 @@ public class ExpenseManage2 extends AppCompatActivity {
 
         options = new FirebaseRecyclerOptions.Builder<Data>()
                 .setQuery(FirebaseDatabase.getInstance().getReference()
-                        .child("Data"), Data.class).build();
+                        .child("Expense"), Data.class).build();
 
         adapter = new FirebaseRecyclerAdapter<Data, dataRetrive>(options) {
             @Override
@@ -122,12 +123,6 @@ public class ExpenseManage2 extends AppCompatActivity {
                     }
                 });
 
-              /*  dataRetrive.btnDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        reff.child(postkey).removeValue();
-                    }
-                }); */
             }
 
             @NonNull
@@ -198,13 +193,9 @@ public class ExpenseManage2 extends AppCompatActivity {
 
         dialog.setView(view);
 
-
-
         final EditText editAmount = view.findViewById(R.id.amount_update);
         final EditText editType = view.findViewById(R.id.type_update);
         final EditText editNote = view.findViewById(R.id.note_update);
-
-
 
         String str = String.valueOf(amount);
         editAmount.setText(str);
@@ -220,6 +211,15 @@ public class ExpenseManage2 extends AppCompatActivity {
                 String amountUp = editAmount.getText().toString().trim();
                 String typeUp = editType.getText().toString().trim();
                 String noteUp = editNote.getText().toString().trim();
+
+                if(TextUtils.isEmpty(amountUp)){
+                    editAmount.setError("Enter amount");
+                    return;
+                }
+                if(TextUtils.isEmpty(typeUp)){
+                    editType.setError("Enter type!");
+                    return;
+                }
 
                 float floatAmount = Float.parseFloat(amountUp);
 

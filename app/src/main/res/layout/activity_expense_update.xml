@@ -63,7 +63,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        android:inputType="textPersonName" />
+                        android:inputType="numberDecimal" />
 
 
                 </RelativeLayout>
@@ -180,7 +180,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="@string/common_google_play_services_update_button" />
+                    android:text="@string/update_btn_expense" />
 
             </RelativeLayout>
             <RelativeLayout
@@ -198,7 +198,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Delete" />
+                    android:text="@string/delete_btn_expense" />
 
             </RelativeLayout>
         </LinearLayout>
