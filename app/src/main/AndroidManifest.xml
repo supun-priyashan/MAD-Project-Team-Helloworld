@@ -14,7 +14,8 @@
         <activity android:name=".HomeActivity">
 
         </activity>
-        <activity android:name=".ExpenseManage"/>
+        <activity android:name=".ExpenseManage"
+            android:theme="@style/AppThemeExpense"/>
         <activity
             android:name=".ListOfListsActivity"
             android:theme="@style/AppThemeList" />

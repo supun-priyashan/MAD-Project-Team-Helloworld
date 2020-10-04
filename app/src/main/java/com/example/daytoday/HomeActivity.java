@@ -12,7 +12,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.daytoday.Model.Data;
 import com.example.daytoday.Model.DataIncome;
+import com.example.daytoday.Model.Debt;
 import com.example.daytoday.Model.List;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

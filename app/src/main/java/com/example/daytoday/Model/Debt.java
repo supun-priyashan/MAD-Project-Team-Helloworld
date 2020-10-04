@@ -1,4 +1,4 @@
-package com.example.daytoday;
+package com.example.daytoday.Model;
 
 import android.widget.TextView;
 
