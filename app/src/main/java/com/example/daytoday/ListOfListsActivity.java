@@ -94,14 +94,6 @@ public class ListOfListsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        menu_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-            }
-        });
-
         fab_btn.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -203,6 +195,14 @@ public class ListOfListsActivity extends AppCompatActivity {
             }
         });
 
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
+
     }
 
     private void customDialog(){
@@ -240,14 +240,15 @@ public class ListOfListsActivity extends AppCompatActivity {
                     return;
                 }
 
-                String id = lDatabase.push().getKey();
                 String date = DateFormat.getDateInstance().format(new Date());
+
+                String id = lDatabase.push().getKey();
 
                 List list = new List(mType,mAmount,mNote,date,id);
 
-                lDatabase.child(id).setValue(list);
+                setListDb(id,list);
 
-                Toast.makeText(ListOfListsActivity.this,"Item Added",Toast.LENGTH_SHORT).show();
+
 
                 dialog.dismiss();
             }
@@ -255,6 +256,17 @@ public class ListOfListsActivity extends AppCompatActivity {
 
         dialog.show();
         dialog.getWindow().setGravity(Gravity.LEFT);
+    }
+
+    public boolean setListDb(String id,List list){
+        try {
+            lDatabase.child(id).setValue(list);
+            Toast.makeText(ListOfListsActivity.this,"Item Added",Toast.LENGTH_SHORT).show();
+            return true;
+        }catch (Exception e){
+            Toast.makeText(ListOfListsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     public static class MyViewHolder extends  RecyclerView.ViewHolder{

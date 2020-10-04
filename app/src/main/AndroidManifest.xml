@@ -13,10 +13,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".HomeActivity"/>
         <activity android:name=".ExpenseManage2"/>
-        <activity android:name=".ListOfListsActivity"
-            android:theme="@style/AppThemeOrange"></activity>
+        <activity
+            android:name=".ListOfListsActivity"
+            android:theme="@style/AppThemeList" />
         <activity android:name=".ListActivity"
-            android:theme="@style/AppThemeOrange"/>
+            android:theme="@style/AppThemeList"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -20,7 +20,7 @@
         android:clickable="true"
         android:scaleX="1.25"
         android:scaleY="1.25"
-        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTint="@color/theme_list"
         app:elevation="30dp"
         app:srcCompat="@drawable/ic_action_name" />
 
@@ -106,7 +106,7 @@
                     android:layout_height="50dp"
                     android:layout_centerInParent="true"
                     app:srcCompat="@drawable/baseline_grading_black_24"
-                    app:tint="@color/colorPrimaryDark" />
+                    app:tint="@color/theme_list" />
             </RelativeLayout>
 
 
@@ -123,7 +123,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="197dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/theme_list"
             android:orientation="vertical">
 
             <LinearLayout
@@ -254,7 +254,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerListItems"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="480dp"
             android:paddingTop="10dp">
 
         </androidx.recyclerview.widget.RecyclerView>
