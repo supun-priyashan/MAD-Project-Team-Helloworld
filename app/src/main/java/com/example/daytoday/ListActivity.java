@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,17 +42,13 @@ import java.util.Map;
 
 public class ListActivity extends AppCompatActivity {
 
-    private FloatingActionButton fab_btn;
-    private ImageView menu_btn;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
     private FirebaseRecyclerOptions<Item> options;
     private FirebaseRecyclerAdapter<Item,MyViewHolder> adapter;
 
-    private RecyclerView recyclerView;
     private TextView total;
-    private TextView listNameShow;
 
     private String type;
     private float amount;
@@ -70,7 +67,7 @@ public class ListActivity extends AppCompatActivity {
         listKey = extras.getString("key");
         listName = extras.getString("listName");
 
-        listNameShow = findViewById(R.id.shopping_list_name);
+        TextView listNameShow = findViewById(R.id.shopping_list_name);
 
         listNameShow.setText(listName);
 
@@ -88,33 +85,15 @@ public class ListActivity extends AppCompatActivity {
 
         total = findViewById(R.id.exTotAmount);
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+        FloatingActionButton fab_btn = findViewById(R.id.fab);
+        ImageView menu_btn = findViewById(R.id.menu_btn);
 
-                float totAmount = calcTotAmount(snapshot);
+        RelativeLayout income = findViewById(R.id.income_nav);
+        RelativeLayout expense = findViewById(R.id.expense_nav);
+        RelativeLayout debt = findViewById(R.id.debt_nav);
+        RelativeLayout list = findViewById(R.id.shoppinglist_nav);
 
-                String fTotAmount = formatDecimal(totAmount);
-
-                total.setText(String.valueOf(fTotAmount));
-
-                Map<String, Object> updates = new HashMap<String,Object>();
-                updates.put("amount",totAmount);
-
-                FirebaseDatabase.getInstance().getReference("Shopping List").child(uid).child(listKey).updateChildren(updates);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        fab_btn = findViewById(R.id.fab);
-
-        menu_btn = findViewById(R.id.menu_btn);
-
-        recyclerView = findViewById(R.id.recyclerListItems);
+        RecyclerView recyclerView = findViewById(R.id.recyclerListItems);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
@@ -123,22 +102,6 @@ public class ListActivity extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-
-        fab_btn.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                customDialog();
-            }
-        });
-
-        menu_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-            }
-        });
 
         options = new FirebaseRecyclerOptions.Builder<Item>()
                 .setQuery(mDatabase,Item.class).build();
@@ -175,6 +138,72 @@ public class ListActivity extends AppCompatActivity {
             }
         };
         recyclerView.setAdapter(adapter);
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                float totAmount = calcTotAmount(snapshot);
+
+                String fTotAmount = formatDecimal(totAmount);
+
+                total.setText(String.valueOf(fTotAmount));
+
+                Map<String, Object> updates = new HashMap<String,Object>();
+                updates.put("amount",totAmount);
+
+                FirebaseDatabase.getInstance().getReference("Shopping List").child(uid).child(listKey).updateChildren(updates);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
+
+        fab_btn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                customDialog();
+            }
+        });
+
+        income.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),IncomeManage2.class));
+            }
+        });
+
+        expense.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ExpenseManage2.class));
+            }
+        });
+
+        debt.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),DebtListActivity.class));
+            }
+        });
+
+        list.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
+            }
+        });
 
     }
 

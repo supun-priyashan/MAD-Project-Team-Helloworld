@@ -10,6 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabLists"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="15dp"
+            android:clickable="true"
+            android:scaleX="1.25"
+            android:scaleY="1.25"
+            app:backgroundTint="@color/colorPrimaryDark"
+            app:elevation="30dp"
+            app:srcCompat="@drawable/ic_action_name" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -17,8 +30,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="197dp"
-                android:background="@drawable/shopping_list_blue"
+                android:layout_height="225dp"
+                android:background="@color/colorPrimaryDark"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -67,10 +80,10 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="2dp"
                     android:layout_marginLeft="2dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="2dp"
                     android:layout_marginRight="2dp"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginBottom="30dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -97,20 +110,6 @@
 
 
         </LinearLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabLists"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_margin="15dp"
-            android:backgroundTint="#2ECBDA"
-            android:scaleX="1.25"
-            android:scaleY="1.25"
-            app:backgroundTint="@color/sky_blue"
-            app:elevation="30dp"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_action_name" />
 
         <LinearLayout
             android:id="@+id/holderLinear"
@@ -179,11 +178,11 @@
                         android:layout_height="50dp"
                         android:layout_centerInParent="true"
                         app:srcCompat="@drawable/baseline_attach_money_black_24"
-                        app:tint="@color/nav_tint" />
+                        app:tint="#737272" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/todolist_nav"
+                    android:id="@+id/shoppinglist_nav"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
@@ -194,7 +193,7 @@
                         android:layout_height="50dp"
                         android:layout_centerInParent="true"
                         app:srcCompat="@drawable/baseline_grading_black_24"
-                        app:tint="@color/nav_tint" />
+                        app:tint="@color/colorPrimaryDark" />
                 </RelativeLayout>
 
 
