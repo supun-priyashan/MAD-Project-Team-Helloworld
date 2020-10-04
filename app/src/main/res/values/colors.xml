@@ -8,5 +8,5 @@
     <color name="blueish_shadows">#95A8A8</color>
     <color name="white_back">#FFFFFF</color>
     <color name="nav_tint">#7E7C7C</color>
-    <color name="theme_dark_orange">#FFFF6E40</color>
+    <color name="theme_list">#FFFF6E40</color>
 </resources>
