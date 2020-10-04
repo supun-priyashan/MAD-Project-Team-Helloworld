@@ -24,7 +24,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="32dp"
                 android:gravity="center_horizontal"
-                android:text="@string/login_title"
+                android:text="login"
                 android:textColor="#333232"
                 android:textSize="30sp" />
 

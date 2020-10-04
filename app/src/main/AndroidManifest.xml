@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity"/>
+        <activity android:name=".HomeActivity">
+
+        </activity>
         <activity android:name=".ExpenseManage2"/>
         <activity android:name=".ListOfListsActivity"></activity>
         <activity android:name=".ListActivity" />

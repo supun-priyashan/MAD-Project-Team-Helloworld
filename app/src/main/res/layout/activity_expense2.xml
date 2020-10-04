@@ -145,8 +145,8 @@
                         android:id="@+id/imageView9"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:tint="@color/nav_tint"
+                        android:layout_centerHorizontal="true"
+                        android:tint="@color/colorAccent"
                         app:srcCompat="@drawable/baseline_trending_down_white_24" />
                 </RelativeLayout>
 
