@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +80,11 @@ public class ListOfListsActivity extends AppCompatActivity {
         fab_btn = findViewById(R.id.fabLists);
         menu_btn = findViewById(R.id.menu_btn);
         recyclerView = findViewById(R.id.recyclerLists);
+
+        RelativeLayout income = findViewById(R.id.income_nav);
+        RelativeLayout expense = findViewById(R.id.expense_nav);
+        RelativeLayout debt = findViewById(R.id.debt_nav);
+        RelativeLayout list = findViewById(R.id.shoppinglist_nav);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
@@ -168,6 +174,34 @@ public class ListOfListsActivity extends AppCompatActivity {
             }
         };
         recyclerView.setAdapter(adapter);
+
+        income.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        expense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ExpenseManage2.class));
+            }
+        });
+
+        debt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),DebtListActivity.class));
+            }
+        });
+
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
+            }
+        });
 
     }
 

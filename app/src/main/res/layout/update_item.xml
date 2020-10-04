@@ -17,7 +17,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
+                android:background="@color/colorPrimaryDark"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/edit_item_title"
@@ -182,7 +182,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@color/colorAccent"
+                        android:background="@color/colorPrimaryDark"
                         android:text="@string/delete_btn_lab"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@android:color/white" />
@@ -204,7 +204,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@color/colorAccent"
+                        android:background="@color/colorPrimaryDark"
                         android:text="@string/save_cahnges_btn_lab"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@android:color/white" />
