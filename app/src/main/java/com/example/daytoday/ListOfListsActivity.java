@@ -178,7 +178,7 @@ public class ListOfListsActivity extends AppCompatActivity {
         income.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getApplicationContext(),IncomeManage2.class));
             }
         });
 
