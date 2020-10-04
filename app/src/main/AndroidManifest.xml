@@ -15,8 +15,11 @@
 
         </activity>
         <activity android:name=".ExpenseManage2"/>
-        <activity android:name=".ListOfListsActivity"></activity>
-        <activity android:name=".ListActivity" />
+        <activity
+            android:name=".ListOfListsActivity"
+            android:theme="@style/AppThemeList" />
+        <activity android:name=".ListActivity"
+            android:theme="@style/AppThemeList"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +29,7 @@
         </activity>
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".DebtListActivity" />
+        <activity android:name=".IncomeManage2"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

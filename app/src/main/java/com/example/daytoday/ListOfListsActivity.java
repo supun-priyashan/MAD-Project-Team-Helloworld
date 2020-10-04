@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +81,11 @@ public class ListOfListsActivity extends AppCompatActivity {
         menu_btn = findViewById(R.id.menu_btn);
         recyclerView = findViewById(R.id.recyclerLists);
 
+        RelativeLayout income = findViewById(R.id.income_nav);
+        RelativeLayout expense = findViewById(R.id.expense_nav);
+        RelativeLayout debt = findViewById(R.id.debt_nav);
+        RelativeLayout list = findViewById(R.id.shoppinglist_nav);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         //layoutManager.setStackFromEnd(true);
@@ -87,14 +93,6 @@ public class ListOfListsActivity extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-
-        menu_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-            }
-        });
 
         fab_btn.setOnClickListener(new View.OnClickListener(){
 
@@ -169,6 +167,42 @@ public class ListOfListsActivity extends AppCompatActivity {
         };
         recyclerView.setAdapter(adapter);
 
+        income.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),IncomeManage2.class));
+            }
+        });
+
+        expense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ExpenseManage2.class));
+            }
+        });
+
+        debt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),DebtListActivity.class));
+            }
+        });
+
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
+            }
+        });
+
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
+
     }
 
     private void customDialog(){
@@ -206,14 +240,15 @@ public class ListOfListsActivity extends AppCompatActivity {
                     return;
                 }
 
-                String id = lDatabase.push().getKey();
                 String date = DateFormat.getDateInstance().format(new Date());
+
+                String id = lDatabase.push().getKey();
 
                 List list = new List(mType,mAmount,mNote,date,id);
 
-                lDatabase.child(id).setValue(list);
+                setListDb(id,list);
 
-                Toast.makeText(ListOfListsActivity.this,"Item Added",Toast.LENGTH_SHORT).show();
+
 
                 dialog.dismiss();
             }
@@ -221,6 +256,17 @@ public class ListOfListsActivity extends AppCompatActivity {
 
         dialog.show();
         dialog.getWindow().setGravity(Gravity.LEFT);
+    }
+
+    public boolean setListDb(String id,List list){
+        try {
+            lDatabase.child(id).setValue(list);
+            Toast.makeText(ListOfListsActivity.this,"Item Added",Toast.LENGTH_SHORT).show();
+            return true;
+        }catch (Exception e){
+            Toast.makeText(ListOfListsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     public static class MyViewHolder extends  RecyclerView.ViewHolder{

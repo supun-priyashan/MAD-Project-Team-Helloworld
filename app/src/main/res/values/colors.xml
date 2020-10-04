@@ -7,6 +7,6 @@
     <color name="text_white">#FFFFFF</color>
     <color name="blueish_shadows">#95A8A8</color>
     <color name="white_back">#FFFFFF</color>
-    <color name="nav_tint">#5C5C5C</color>
-    <color name="theme_dark_blue">#0091EA</color>
+    <color name="nav_tint">#7E7C7C</color>
+    <color name="theme_list">#FFFF6E40</color>
 </resources>

@@ -11,6 +11,110 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="15dp"
+        android:clickable="true"
+        android:scaleX="1.25"
+        android:scaleY="1.25"
+        app:backgroundTint="@color/theme_list"
+        app:elevation="30dp"
+        app:srcCompat="@drawable/ic_action_name" />
+
+    <LinearLayout
+        android:id="@+id/holderLinear"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        android:elevation="20dp"
+        android:orientation="vertical"
+        android:padding="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/income_nav"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="20dp"
+                android:layout_marginLeft="25dp">
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/baseline_trending_up_black_24"
+                    app:tint="@color/nav_tint" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/expense_nav"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp">
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/baseline_trending_down_white_24"
+                    app:tint="@color/nav_tint" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp" />
+
+            <RelativeLayout
+                android:id="@+id/debt_nav"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/baseline_attach_money_black_24"
+                    app:tint="#737272" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/shoppinglist_nav"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/baseline_grading_black_24"
+                    app:tint="@color/theme_list" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +123,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="197dp"
-            android:background="@drawable/shopping_list_blue"
+            android:background="@color/theme_list"
             android:orientation="vertical">
 
             <LinearLayout
@@ -52,8 +156,7 @@
                 android:layout_above="@id/list_name_layout"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="false"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <View
                     android:layout_width="90dp"
@@ -151,7 +254,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerListItems"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="480dp"
             android:paddingTop="10dp">
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -159,17 +262,6 @@
 
 
     </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="15dp"
-        android:backgroundTint="#2ECBDA"
-        android:src="@drawable/ic_action_name"
-        app:backgroundTint="@color/sky_blue"
-        app:fabSize="normal" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
