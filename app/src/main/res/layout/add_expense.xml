@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
+                android:background="@color/theme_Expense"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/add_expense_title"
@@ -38,7 +38,6 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -83,7 +82,6 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -185,7 +183,8 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        android:text="@string/btn_save_expense" />
+                        android:text="@string/btn_save_expense"
+                        android:background="#65F64B"/>
 
                 </RelativeLayout>
 

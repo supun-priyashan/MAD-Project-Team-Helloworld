@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
+                android:background="@color/theme_Expense"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/update_expese_title"
@@ -38,7 +38,6 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -82,7 +81,6 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -126,7 +124,6 @@
 
 
                     <TextView
-                        android:id="@+id/note"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -180,7 +177,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="@string/update_btn_expense" />
+                    android:text="@string/update_btn_expense"
+                    android:background="#65F64B"/>
 
             </RelativeLayout>
             <RelativeLayout
@@ -198,7 +196,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="@string/delete_btn_expense" />
+                    android:text="@string/delete_btn_expense"
+                    android:background="#65F64B"/>
 
             </RelativeLayout>
         </LinearLayout>

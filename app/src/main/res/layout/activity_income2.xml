@@ -73,7 +73,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/Income_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
@@ -222,7 +221,6 @@
                     android:layout_marginLeft="40dp">
 
                     <ImageView
-                        android:id="@+id/imageView10"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_centerInParent="true"
@@ -238,7 +236,6 @@
                     android:layout_marginLeft="30dp">
 
                     <ImageView
-                        android:id="@+id/imageView11"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_centerInParent="true"
