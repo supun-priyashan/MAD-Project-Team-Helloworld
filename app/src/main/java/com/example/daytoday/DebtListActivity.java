@@ -53,7 +53,6 @@ public class DebtListActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private RelativeLayout income_nav,expense_nav,debt_nav,todolist_nav;
     private ImageView menu_btn,back_btn;
-
     private TextView totdebts;
     private String name;
     private String ddate;
@@ -68,10 +67,6 @@ public class DebtListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debtlist);
 
-        //db= FirebaseDatabase.getInstance().getReference().child("Debt");
-
-
-
         totdebts = findViewById(R.id.totDebtAmount);
 
         mAuth = FirebaseAuth.getInstance();
@@ -84,7 +79,6 @@ public class DebtListActivity extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance().getReference("Debt").child(did);
         db.keepSynced(true);
-
 
         db.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -100,7 +94,6 @@ public class DebtListActivity extends AppCompatActivity {
                 String fTotDebt = decimalFormat.format(totdebt);
 
                 totdebts.setText(String.valueOf(fTotDebt));
-
             }
 
             @Override
@@ -108,7 +101,6 @@ public class DebtListActivity extends AppCompatActivity {
 
             }
         });
-
 
         fabbtn = findViewById(R.id.fabbtn);
 
@@ -129,14 +121,10 @@ public class DebtListActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull final DebtViewHolder holder, int position, @NonNull final Debt debt) {
 
-
-
                 holder.name.setText("Name : "+debt.getName());
                 holder.datedue.setText("Due Date : "+debt.getDuedate());
                 holder.amount.setText("Amount : "+ " "+ debt.getAmount());
                 holder.dis.setText("Description : "+debt.getDiscription());
-
-
 
                holder.debtlay.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -152,7 +140,6 @@ public class DebtListActivity extends AppCompatActivity {
                         updateDebt();
                     }
                 });
-
             }
 
             @NonNull
@@ -189,8 +176,6 @@ public class DebtListActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),HomeActivity.class));
             }
         });
-
-
 
         expense_nav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,7 +244,7 @@ public class DebtListActivity extends AppCompatActivity {
                         ddate.setText(date);
                     }
                 },year,month,day);
-                datePickerDialog.show();
+                 datePickerDialog.show();
 
             }
         });
@@ -268,31 +253,24 @@ public class DebtListActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 String Name = name.getText().toString().trim();
                 String Ddate = ddate.getText().toString().trim();
                 String dAmount = damount.getText().toString().trim();
                 String Desc = description.getText().toString().trim();
 
-
-
                 if(TextUtils.isEmpty(Name)){
                     name.setError("Customer Name");
                     return;
                 }
-
                 if(TextUtils.isEmpty(Ddate)){
                     ddate.setError("select date");
                     return;
                 }
-
-                float amountfloat = Float.parseFloat(dAmount);
-
                 if(TextUtils.isEmpty(dAmount)){
                     damount.setError("Enter amount");
                     return;
                 }
+                float amountfloat = Float.parseFloat(dAmount);
 
                 String id = db.push().getKey();
 
@@ -355,8 +333,6 @@ public class DebtListActivity extends AppCompatActivity {
 
         upName.setText(name);
         upName.setSelection(name.length());
-
-
         updDate.setText(ddate);
         updDate.setSelection(ddate.length());
 
@@ -367,8 +343,6 @@ public class DebtListActivity extends AppCompatActivity {
         upDesc.setText(description);
         upDesc.setSelection(description.length());
 
-       // Button Update = myview_.findViewById(R.id.btupdate);
-       // Button Delete = myview_.findViewById(R.id.btDelete);
         ImageView imgup = myview_.findViewById(R.id.imgUpdate);
         ImageView imgdl = myview_.findViewById(R.id.imgDelete);
 
