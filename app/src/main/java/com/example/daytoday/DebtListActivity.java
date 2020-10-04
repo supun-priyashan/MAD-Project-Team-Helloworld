@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,8 @@ public class DebtListActivity extends AppCompatActivity {
     private FirebaseRecyclerAdapter<Debt, DebtViewHolder> adapter;
     private RecyclerView recyclerView;
     private FirebaseAuth mAuth;
+    private RelativeLayout income_nav,expense_nav,debt_nav,todolist_nav;
+    private ImageView menu_btn;
 
     private TextView totdebts;
     private String name;
@@ -162,6 +165,49 @@ public class DebtListActivity extends AppCompatActivity {
 
         adapter.startListening();
         recyclerView.setAdapter(adapter);
+
+        income_nav = findViewById(R.id.income_nav);
+        expense_nav = findViewById(R.id.expense_nav);
+        debt_nav = findViewById(R.id.debt_nav);
+        todolist_nav = findViewById(R.id.todolist_nav);
+        menu_btn = findViewById(R.id.menu_btn);
+
+
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
+
+
+
+        expense_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DebtListActivity.this,ExpenseManage2.class) );
+            }
+        });
+
+        todolist_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DebtListActivity.this,ListOfListsActivity.class) );
+            }
+        });
+        income_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               //startActivity(new Intent(DebtListActivity.this,ListOfListsActivity.class) );
+            }
+        });
+        debt_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(DebtListActivity.this,"Already in here",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

@@ -20,13 +20,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
+                android:background="@color/theme_debt"
                 android:gravity="center"
                 android:padding="10dp"
-                android:textColor="@android:color/white"
                 android:text="Debts"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium">
-            </TextView>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/white"></TextView>
 
 
                  <LinearLayout
@@ -270,25 +269,24 @@
                 android:layout_weight="1">
 
 
+                <Button
+                    android:id="@+id/btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/theme_debt"
+                    android:shadowColor="@color/blueish_shadows"
+                    android:text="Add new"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@android:color/white">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Add new"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:id="@+id/btn"
-                android:textColor="@android:color/white"
-                android:background="@color/colorAccent"
-                android:shadowColor="@color/blueish_shadows">
 
-
-            </Button>
+                </Button>
 
             </RelativeLayout>
 

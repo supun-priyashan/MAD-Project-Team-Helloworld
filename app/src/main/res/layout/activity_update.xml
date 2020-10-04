@@ -20,13 +20,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
+                android:background="@color/theme_debt"
                 android:gravity="center"
                 android:padding="10dp"
-                android:textColor="@android:color/white"
                 android:text="Edit"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium">
-            </TextView>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/white"></TextView>
 
 
 
@@ -282,7 +281,7 @@
             android:background="#FFFFFF"
             android:contentDescription="@string/ed_btn_content_desc"
             app:srcCompat="@drawable/ic_baseline_edit_24"
-            app:tint="@color/colorAccent" />
+            app:tint="@android:color/black" />
 
 
     </RelativeLayout>
@@ -300,7 +299,7 @@
             android:background="#FFFFFF"
             android:contentDescription="@string/del_btn_content_desc"
             app:srcCompat="@drawable/ic_baseline_delete_24"
-            app:tint="#E64C4C" />
+            app:tint="@android:color/holo_red_dark" />
 
 
     </RelativeLayout>
