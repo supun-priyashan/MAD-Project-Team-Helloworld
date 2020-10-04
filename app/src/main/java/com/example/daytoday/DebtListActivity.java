@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.daytoday.Model.Debt;
 import com.example.daytoday.Model.Item;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -51,7 +52,7 @@ public class DebtListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FirebaseAuth mAuth;
     private RelativeLayout income_nav,expense_nav,debt_nav,todolist_nav;
-    private ImageView menu_btn;
+    private ImageView menu_btn,back_btn;
 
     private TextView totdebts;
     private String name;
@@ -171,6 +172,7 @@ public class DebtListActivity extends AppCompatActivity {
         debt_nav = findViewById(R.id.debt_nav);
         todolist_nav = findViewById(R.id.todolist_nav);
         menu_btn = findViewById(R.id.menu_btn);
+        back_btn = findViewById(R.id.back_btn);
 
 
         menu_btn.setOnClickListener(new View.OnClickListener() {
@@ -181,12 +183,19 @@ public class DebtListActivity extends AppCompatActivity {
             }
         });
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+            }
+        });
+
 
 
         expense_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DebtListActivity.this,ExpenseManage2.class) );
+                startActivity(new Intent(DebtListActivity.this,ExpenseManage.class) );
             }
         });
 

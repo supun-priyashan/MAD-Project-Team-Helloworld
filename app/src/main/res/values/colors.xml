@@ -9,4 +9,7 @@
     <color name="white_back">#FFFFFF</color>
     <color name="nav_tint">#7E7C7C</color>
     <color name="theme_list">#FFFF6E40</color>
+    <color name="theme_Expense">#27B10F</color>
+    <color name="theme_Income">#F1123E</color>
+    <color name="theme_debt">#240E55</color>
 </resources>
