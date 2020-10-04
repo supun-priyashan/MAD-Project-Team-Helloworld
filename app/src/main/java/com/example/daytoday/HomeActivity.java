@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.daytoday.Model.List;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +33,9 @@ public class HomeActivity extends AppCompatActivity {
     DatabaseReference db;
     private TextView debt_total_home;
 
+    DatabaseReference lDatabase;
+    private  TextView shopping_tot;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +43,6 @@ public class HomeActivity extends AppCompatActivity {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser mUser = mAuth.getCurrentUser();
-        FirebaseUser dUser = mAuth.getCurrentUser();
 
 
         if (mUser == null ){
@@ -84,9 +87,7 @@ public class HomeActivity extends AppCompatActivity {
 
         reff= FirebaseDatabase.getInstance().getReference("Expense").child(uid);
 
-        //Expense_total_home.setText("helloo");
-
-       reff.addValueEventListener(new ValueEventListener() {
+        reff.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -110,12 +111,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-       //debt
+        //debt
 
         debt_total_home = findViewById(R.id.debt_total_home);
-        String did = dUser.getUid();
 
-        db = FirebaseDatabase.getInstance().getReference("Debt").child(did);
+        db = FirebaseDatabase.getInstance().getReference("Debt").child(uid);
 
         db.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -131,6 +131,35 @@ public class HomeActivity extends AppCompatActivity {
                 String fTotDebt = decimalFormat.format(totdebt);
 
                 debt_total_home.setText(String.valueOf(fTotDebt));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        lDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(uid);
+        shopping_tot = findViewById(R.id.shopping_home_tot);
+
+        lDatabase.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                float totAmount = 0;
+
+                for(DataSnapshot snap:snapshot.getChildren()){
+                    List list = snap.getValue(List.class);
+                    totAmount += list.getAmount();
+                }
+
+                DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                String fTotAmount = decimalFormat.format(totAmount);
+
+                shopping_tot.setText(String.valueOf(fTotAmount));
 
             }
 
