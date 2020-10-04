@@ -1,5 +1,6 @@
 package com.example.daytoday;
 
+import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +20,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.daytoday.Model.DataIncome;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,17 +34,19 @@ import com.google.firebase.database.ValueEventListener;
 
 public class IncomeManage2 extends AppCompatActivity {
 
-    private FirebaseRecyclerOptions<Data> options;
-    private FirebaseRecyclerAdapter<Data, dataRetrive> adapter;
+    private FirebaseRecyclerOptions<DataIncome> options;
+    private FirebaseRecyclerAdapter<DataIncome, dataRetrive> adapter;
+    private FirebaseAuth mAuth;
 
     private RecyclerView recyclerView;
 
     private TextView total;
 
     private FloatingActionButton fabButton;
+    private RelativeLayout income_nav,expense_nav,debt_nav,todolist_nav;
 
     DatabaseReference reff;
-    Data data;
+    DataIncome data;
 
     private String type;
     private float amount;
@@ -51,17 +58,26 @@ public class IncomeManage2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income2);
 
-        Data data;
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+
+        if (mUser == null ){
+            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+        }
+
+        String uid = mUser.getUid();
+
+        DataIncome data;
 
         recyclerView = findViewById(R.id.receive);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        total = findViewById(R.id.totExpense);
+        total = findViewById(R.id.totIncome);
 
         fabButton = findViewById(R.id.fab);
 
-        reff= FirebaseDatabase.getInstance().getReference().child("DataIncome");
+        reff= FirebaseDatabase.getInstance().getReference("DataIncome").child(uid);
         reff.keepSynced(true);
 
         //Total expense counter
@@ -70,18 +86,18 @@ public class IncomeManage2 extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                float totExpense = 0;
+                float totIncome= 0;
 
                 for (DataSnapshot dataSnapshot:snapshot.getChildren()){
 
-                    Data data = dataSnapshot.getValue(Data.class);
+                    DataIncome data = dataSnapshot.getValue(DataIncome.class);
 
-                    totExpense +=data.getAmount();
+                    totIncome +=data.getAmount();
                 }
                 DecimalFormat decimalFormat = new DecimalFormat("#.00");
-                String fTotExpense = decimalFormat.format(totExpense);
+                String TotIncome = decimalFormat.format(totIncome);
 
-                total.setText(String.valueOf(fTotExpense));
+                total.setText(String.valueOf(TotIncome));
             }
 
             @Override
@@ -98,13 +114,13 @@ public class IncomeManage2 extends AppCompatActivity {
             }
         });
 
-        options = new FirebaseRecyclerOptions.Builder<Data>()
-                .setQuery(FirebaseDatabase.getInstance().getReference()
-                        .child("DataIncome"), Data.class).build();
+        options = new FirebaseRecyclerOptions.Builder<DataIncome>()
+                .setQuery(FirebaseDatabase.getInstance().getReference("DataIncome")
+                        .child(uid), DataIncome.class).build();
 
-        adapter = new FirebaseRecyclerAdapter<Data, dataRetrive>(options) {
+        adapter = new FirebaseRecyclerAdapter<DataIncome, dataRetrive>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull dataRetrive dataRetrive, final int i, @NonNull Data data) {
+            protected void onBindViewHolder(@NonNull dataRetrive dataRetrive, final int i, @NonNull DataIncome data) {
                 dataRetrive.amountR.setText("Amount - " + " " + data.getAmount());
                 dataRetrive.typeR.setText("Type - " + data.getType());
                 dataRetrive.noteR.setText("Note - " + data.getNote());
@@ -123,12 +139,6 @@ public class IncomeManage2 extends AppCompatActivity {
                     }
                 });
 
-              /*  dataRetriveIncome.btnDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        reff.child(postkey).removeValue();
-                    }
-                }); */
             }
 
             @NonNull
@@ -140,6 +150,43 @@ public class IncomeManage2 extends AppCompatActivity {
 
         };
         recyclerView.setAdapter(adapter);
+
+        //navigation
+
+        income_nav = findViewById(R.id.income_nav);
+        expense_nav = findViewById(R.id.expense_nav);
+        debt_nav = findViewById(R.id.debt_nav);
+        todolist_nav = findViewById(R.id.todolist_nav);
+
+        income_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(getApplicationContext(),"Income Manage",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        expense_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(IncomeManage2.this, ExpenseManage.class) );
+            }
+        });
+
+        debt_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(IncomeManage2.this,DebtListActivity.class) );
+            }
+        });
+
+
+        todolist_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(IncomeManage2.this,ListOfListsActivity.class) );
+            }
+        });
     }
 
     @Override
@@ -176,7 +223,7 @@ public class IncomeManage2 extends AppCompatActivity {
 
                 String id = reff.push().getKey();
 
-                Data data = new Data(amountEx,exType,exNote);
+                DataIncome data = new DataIncome(amountEx,exType,exNote);
                 reff.child(id).setValue(data);
 
                 dialog.dismiss();
@@ -224,11 +271,11 @@ public class IncomeManage2 extends AppCompatActivity {
 
                 float floatAmount = Float.parseFloat(amountUp);
 
-                Data data = new Data(floatAmount,typeUp,noteUp);
+                DataIncome data = new DataIncome(floatAmount,typeUp,noteUp);
 
                 reff.child(postKey).setValue(data);
 
-                Toast.makeText(IncomeManage2.this,"Expense Updated",Toast.LENGTH_SHORT).show();
+                Toast.makeText(IncomeManage2.this,"Income Updated",Toast.LENGTH_SHORT).show();
 
                 dialog.dismiss();
             }
@@ -238,7 +285,7 @@ public class IncomeManage2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 reff.child(postKey).removeValue();
-                Toast.makeText(IncomeManage2.this,"Expense Deleted",Toast.LENGTH_SHORT).show();
+                Toast.makeText(IncomeManage2.this,"Income Deleted",Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

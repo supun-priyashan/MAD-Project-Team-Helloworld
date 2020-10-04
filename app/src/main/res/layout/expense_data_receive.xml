@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="5dp"
-    app:cardUseCompatPadding="true"
-    app:cardBackgroundColor="@color/colorAccent"
-    app:cardCornerRadius="5dp">
+    app:cardBackgroundColor="@color/white_back"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="7dp"
+    app:cardElevation="6dp">
 
     <LinearLayout
         android:id="@+id/holderLinear"
@@ -32,7 +33,7 @@
                     android:paddingLeft="10dp"
                     android:paddingBottom="10dp"
                     android:text="type"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <TextView
                     android:id="@+id/note_Re"
@@ -41,7 +42,7 @@
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
                     android:text="note"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -55,8 +56,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
+                    android:paddingTop="20dp"
                     android:text="amount"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -67,4 +69,4 @@
 
     </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>

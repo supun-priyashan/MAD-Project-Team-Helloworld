@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.daytoday.Model.Item;
-import com.example.daytoday.Model.List;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -196,7 +195,7 @@ public class ListActivity extends AppCompatActivity {
         expense.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ExpenseManage2.class));
+                startActivity(new Intent(getApplicationContext(), ExpenseManage.class));
             }
         });
 
