@@ -2,6 +2,7 @@ package com.example.daytoday;
 
 import android.content.Intent;
 import android.icu.text.DecimalFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -77,15 +79,13 @@ public class ExpenseManage2 extends AppCompatActivity {
 
         fabButton = findViewById(R.id.fab);
 
-
-
-
         reff= FirebaseDatabase.getInstance().getReference("Expense").child(uid);
         reff.keepSynced(true);
 
         //Total expense counter
 
         reff.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 float totExpense = 0;
@@ -167,6 +167,13 @@ public class ExpenseManage2 extends AppCompatActivity {
             }
         });
 
+        expense_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Expense Manage",Toast.LENGTH_SHORT).show();
+            }
+        });
+
         debt_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,7 +185,7 @@ public class ExpenseManage2 extends AppCompatActivity {
         todolist_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ExpenseManage2.this,DebtListActivity.class) );
+                startActivity(new Intent(ExpenseManage2.this,ListOfListsActivity.class) );
             }
         });
 
