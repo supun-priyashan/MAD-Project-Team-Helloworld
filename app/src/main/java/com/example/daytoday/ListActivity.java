@@ -88,6 +88,7 @@ public class ListActivity extends AppCompatActivity {
 
         FloatingActionButton fab_btn = findViewById(R.id.fab);
         ImageView menu_btn = findViewById(R.id.menu_btn);
+        ImageView back_btn = findViewById(R.id.back_btn);
 
         RelativeLayout income = findViewById(R.id.income_nav);
         RelativeLayout expense = findViewById(R.id.expense_nav);
@@ -167,6 +168,13 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mAuth.signOut();
                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
+
+        back_btn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ListOfListsActivity.class));
             }
         });
 

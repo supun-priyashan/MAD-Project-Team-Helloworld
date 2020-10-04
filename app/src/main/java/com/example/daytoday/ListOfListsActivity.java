@@ -30,14 +30,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.daytoday.Model.Item;
 import com.example.daytoday.Model.List;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -46,8 +50,6 @@ import java.util.Map;
 
 public class ListOfListsActivity extends AppCompatActivity {
 
-    private FloatingActionButton fab_btn;
-    private ImageView menu_btn;
     private DatabaseReference lDatabase;
     private FirebaseAuth mAuth;
 
@@ -77,8 +79,10 @@ public class ListOfListsActivity extends AppCompatActivity {
         lDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(uid);
         lDatabase.keepSynced(true);
 
-        fab_btn = findViewById(R.id.fabLists);
-        menu_btn = findViewById(R.id.menu_btn);
+        FloatingActionButton fab_btn = findViewById(R.id.fabLists);
+        ImageView menu_btn = findViewById(R.id.menu_btn);
+        ImageView back_btn = findViewById(R.id.back_btn);
+        TextView total = findViewById(R.id.exAllTotAmount);
         recyclerView = findViewById(R.id.recyclerLists);
 
         RelativeLayout income = findViewById(R.id.income_nav);
@@ -99,6 +103,31 @@ public class ListOfListsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 customDialog();
+            }
+        });
+
+        lDatabase.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                float totAmount = 0;
+
+                for(DataSnapshot snap:snapshot.getChildren()){
+                    List list = snap.getValue(List.class);
+                    totAmount += list.getAmount();
+                }
+
+                DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                String fTotAmount = decimalFormat.format(totAmount);
+
+                total.setText(String.valueOf(fTotAmount));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -202,6 +231,13 @@ public class ListOfListsActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
             }
         });
+
+        back_btn.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+            }
+        }));
 
     }
 

@@ -98,8 +98,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth= FirebaseAuth.getInstance();
 
-        if (mAuth.getCurrentUser() !=null ){
+        /*if (mAuth.getCurrentUser() !=null ){
             mAuth.signOut();
-        }
+        }*/
     }
 }
