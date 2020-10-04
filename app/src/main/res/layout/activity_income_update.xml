@@ -22,7 +22,7 @@
                 android:background="@color/colorAccent"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/update_expese_title"
+                android:text="update_income"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/white" />
 

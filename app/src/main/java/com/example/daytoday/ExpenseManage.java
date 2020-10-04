@@ -33,7 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ExpenseManage2 extends AppCompatActivity {
+public class ExpenseManage extends AppCompatActivity {
 
     private FirebaseRecyclerOptions<Data> options;
     private FirebaseRecyclerAdapter<Data, dataRetrive> adapter;
@@ -108,6 +108,18 @@ public class ExpenseManage2 extends AppCompatActivity {
             }
         });
 
+        //SIGNOUT BUTTON
+
+        ImageView menu_btn = findViewById(R.id.menu_btn);
+
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
+
         //floting button
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +135,7 @@ public class ExpenseManage2 extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<Data, dataRetrive>(options) {
             @Override
             protected void onBindViewHolder(@NonNull dataRetrive dataRetrive, final int i, @NonNull Data data) {
-                dataRetrive.amountR.setText("Amount - " + " " + data.getAmount());
+                dataRetrive.amountR.setText("Rs." + " " + data.getAmount());
                 dataRetrive.typeR.setText("Type - " + data.getType());
                 dataRetrive.noteR.setText("Note - " + data.getNote());
 
@@ -163,7 +175,7 @@ public class ExpenseManage2 extends AppCompatActivity {
         income_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(ExpenseManage2.this,DebtListActivity.class) );
+                startActivity(new Intent(ExpenseManage.this,IncomeManage2.class) );
             }
         });
 
@@ -177,7 +189,7 @@ public class ExpenseManage2 extends AppCompatActivity {
         debt_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ExpenseManage2.this,DebtListActivity.class) );
+                startActivity(new Intent(ExpenseManage.this,DebtListActivity.class) );
             }
         });
 
@@ -185,7 +197,7 @@ public class ExpenseManage2 extends AppCompatActivity {
         todolist_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ExpenseManage2.this,ListOfListsActivity.class) );
+                startActivity(new Intent(ExpenseManage.this,ListOfListsActivity.class) );
             }
         });
 
@@ -199,8 +211,8 @@ public class ExpenseManage2 extends AppCompatActivity {
     }
 
     private void customDialog(){
-        AlertDialog.Builder myDialog = new AlertDialog.Builder(ExpenseManage2.this);
-        LayoutInflater inflater = LayoutInflater.from(ExpenseManage2.this);
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(ExpenseManage.this);
+        LayoutInflater inflater = LayoutInflater.from(ExpenseManage.this);
         View myView = inflater.inflate(R.layout.add_expense,null);
 
         final AlertDialog dialog = myDialog.create();
@@ -238,8 +250,8 @@ public class ExpenseManage2 extends AppCompatActivity {
 
     private void updateData(){
 
-        AlertDialog.Builder myDialog = new AlertDialog.Builder(ExpenseManage2.this);
-        LayoutInflater inflater = LayoutInflater.from(ExpenseManage2.this);
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(ExpenseManage.this);
+        LayoutInflater inflater = LayoutInflater.from(ExpenseManage.this);
         View view = inflater.inflate(R.layout.activity_expense_update,null);
 
         final AlertDialog dialog = myDialog.create();
@@ -283,7 +295,7 @@ public class ExpenseManage2 extends AppCompatActivity {
 
                 reff.child(postKey).setValue(data);
 
-                Toast.makeText(ExpenseManage2.this,"Expense Updated",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExpenseManage.this,"Expense Updated",Toast.LENGTH_SHORT).show();
 
                 dialog.dismiss();
             }
@@ -293,7 +305,7 @@ public class ExpenseManage2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 reff.child(postKey).removeValue();
-                Toast.makeText(ExpenseManage2.this,"Expense Deleted",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExpenseManage.this,"Expense Deleted",Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

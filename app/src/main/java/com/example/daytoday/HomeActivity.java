@@ -9,10 +9,10 @@ import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.daytoday.Model.DataIncome;
 import com.example.daytoday.Model.List;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,15 +26,20 @@ public class HomeActivity extends AppCompatActivity {
 
     //expense
     DatabaseReference reff;
-    Data data;
     private TextView Expense_total_home;
 
     //debt
     DatabaseReference db;
     private TextView debt_total_home;
 
+    //SHOPING LIST
     DatabaseReference lDatabase;
     private  TextView shopping_tot;
+
+    //iNCOME
+    DatabaseReference indb;
+    private TextView Income_total_home;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
         expense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ExpenseManage2.class));
+                startActivity(new Intent(getApplicationContext(), ExpenseManage.class));
             }
         });
 
@@ -82,6 +87,8 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),DebtListActivity.class));
             }
         });
+
+        //Expense
 
         Expense_total_home = findViewById(R.id.expense_total_home);
 
@@ -140,6 +147,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //Shoppping List
 
         lDatabase = FirebaseDatabase.getInstance().getReference("Shopping List").child(uid);
         shopping_tot = findViewById(R.id.shopping_home_tot);
@@ -168,6 +176,39 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
+        //Income
+
+        Income_total_home = findViewById(R.id.income_tot_home);
+
+        indb = FirebaseDatabase.getInstance().getReference("DataIncome").child(uid);
+
+        indb.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                float totIncome= 0;
+
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+
+                    DataIncome data = dataSnapshot.getValue(DataIncome.class);
+
+                    totIncome +=data.getAmount();
+                }
+                DecimalFormat decimalFormat = new DecimalFormat("#.00");
+                String TotIncome = decimalFormat.format(totIncome);
+
+                Income_total_home.setText(String.valueOf(TotIncome));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
 
     }
 }

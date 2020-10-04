@@ -272,7 +272,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/income_tot_hpme"
+                            android:id="@+id/income_tot_home"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="TextView" />

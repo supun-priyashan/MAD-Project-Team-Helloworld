@@ -49,4 +49,5 @@
     <string name="logout_desc">Sign Out</string>
     <string name="total_income">Total Income</string>
     <string name="lists_tot_lab">Expected Shopping Cost: </string>
+    <string name="expense_main">expense_main</string>
 </resources>
