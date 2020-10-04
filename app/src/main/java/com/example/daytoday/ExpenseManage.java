@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.daytoday.Model.Data;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -117,6 +118,17 @@ public class ExpenseManage extends AppCompatActivity {
             public void onClick(View v) {
                 mAuth.signOut();
                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
+
+        //back button
+
+        ImageView back_btn = findViewById(R.id.back_btn);
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),HomeActivity.class));
             }
         });
 
@@ -234,6 +246,20 @@ public class ExpenseManage extends AppCompatActivity {
                 String exType = type_ed.getText().toString().trim();
                 String exNote = note_ed.getText().toString().trim();
 
+                // Input Validation
+                if(TextUtils.isEmpty(exAmount)){
+                    amount_ed.setError("Add amount");
+                    return;
+                }
+                if(TextUtils.isEmpty(exType)){
+                    type_ed.setError("Add Type");
+                    return;
+                }
+                if(TextUtils.isEmpty(exNote)){
+                    note_ed.setError("Add note");
+                    return;
+                }
+
                 float amountEx = Float.parseFloat(exAmount);
 
                 String id = reff.push().getKey();
@@ -280,12 +306,17 @@ public class ExpenseManage extends AppCompatActivity {
                 String typeUp = editType.getText().toString().trim();
                 String noteUp = editNote.getText().toString().trim();
 
+                //Update Validation
                 if(TextUtils.isEmpty(amountUp)){
                     editAmount.setError("Enter amount");
                     return;
                 }
                 if(TextUtils.isEmpty(typeUp)){
                     editType.setError("Enter type!");
+                    return;
+                }
+                if(TextUtils.isEmpty(noteUp)){
+                    editNote.setError("Enter Note!");
                     return;
                 }
 
