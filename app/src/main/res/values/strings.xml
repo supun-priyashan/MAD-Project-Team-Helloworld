@@ -42,12 +42,10 @@
     <string name="reg_greeting">Welcome!!</string>
     <string name="signup_btn_lab">Sign Up</string>
     <string name="pwd_lab">Password</string>
-    <string name="login_title">Login</string>
     <string name="mail_lab">Email</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="logout_desc">Sign Out</string>
-    <string name="total_income">Total Income</string>
     <string name="lists_tot_lab">Expected Shopping Cost: </string>
     <string name="expense_main">expense_main</string>
 </resources>

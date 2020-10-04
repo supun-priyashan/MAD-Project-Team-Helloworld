@@ -5,12 +5,15 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.daytoday.Model.Data;
 import com.example.daytoday.Model.DataIncome;
@@ -23,6 +26,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.eazegraph.lib.charts.PieChart;
+import org.eazegraph.lib.models.PieModel;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -41,6 +47,11 @@ public class HomeActivity extends AppCompatActivity {
     //iNCOME
     DatabaseReference indb;
     private TextView Income_total_home;
+
+    PieChart pieChart;
+
+    float totIncome;
+    float expense_total_home;
 
 
     @Override
@@ -61,6 +72,8 @@ public class HomeActivity extends AppCompatActivity {
         ImageView expense = findViewById(R.id.imageView7);
         ImageView list = findViewById(R.id.imageView9);
         ImageView debt = findViewById(R.id.imageView8);
+
+        pieChart = findViewById(R.id.piechart);
 
         income.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +113,6 @@ public class HomeActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                float expense_total_home = 0;
 
                 for (DataSnapshot dataSnapshot:snapshot.getChildren()){
 
@@ -112,6 +124,12 @@ public class HomeActivity extends AppCompatActivity {
                 String TotExpense = decimalFormat.format(expense_total_home);
 
                 Expense_total_home.setText(String.valueOf(TotExpense));
+
+                pieChart.addPieSlice(
+                        new PieModel(
+                                "C++",
+                                (int)expense_total_home,
+                                Color.parseColor("#EF5350")));
             }
 
             @Override
@@ -183,13 +201,13 @@ public class HomeActivity extends AppCompatActivity {
 
         Income_total_home = findViewById(R.id.income_tot_home);
 
+
         indb = FirebaseDatabase.getInstance().getReference("DataIncome").child(uid);
 
         indb.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                float totIncome= 0;
 
                 for (DataSnapshot dataSnapshot:snapshot.getChildren()){
 
@@ -201,6 +219,12 @@ public class HomeActivity extends AppCompatActivity {
                 String TotIncome = decimalFormat.format(totIncome);
 
                 Income_total_home.setText(String.valueOf(TotIncome));
+
+                pieChart.addPieSlice(
+                        new PieModel(
+                                "Python",
+                                (int)totIncome,
+                                Color.parseColor("#66BB6A")));
             }
 
             @Override
@@ -208,6 +232,20 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
+        int a = (int)expense_total_home;
+        int b = (int)totIncome;
+
+        //Toast.makeText(getApplicationContext(),Income_total_home.getText().toString(),Toast.LENGTH_LONG).show();
+
+        //setData(a,b);
+
+        pieChart.startAnimation();
+
+    }
+
+    private void setData(int a,int b)
+    {
 
 
 
