@@ -122,6 +122,7 @@
                         android:id="@+id/debt_duedate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/theme_debt"
                         android:layout_marginStart="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
