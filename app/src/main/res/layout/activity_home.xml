@@ -216,7 +216,7 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="15dp"
+                                android:layout_height="16dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginTop="5dp">
 
@@ -226,8 +226,9 @@
                                     android:layout_height="match_parent"
                                     android:background="@color/Python" />
 
-                                <!--Text view to display python text -->
+                                <!--Text view to display income text -->
                                 <TextView
+                                    android:id="@+id/income_pra"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingLeft="10dp"
@@ -237,7 +238,7 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="15dp"
+                                android:layout_height="16dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginTop="5dp">
 
@@ -249,8 +250,9 @@
 
                                 <!--Text view to display C++ text -->
                                 <TextView
+                                    android:id="@+id/expense_pra"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:paddingLeft="10dp"
                                     android:text="Expenses" />
 
