@@ -62,12 +62,13 @@ public class DebtListActivity extends AppCompatActivity {
 
 
     DatabaseReference db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debtlist);
 
-        totdebts = findViewById(R.id.totDebtAmount);
+
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser dUser = mAuth.getCurrentUser();
@@ -77,8 +78,14 @@ public class DebtListActivity extends AppCompatActivity {
         }
         String did = dUser.getUid();
 
+
+/*create database path*/
         db = FirebaseDatabase.getInstance().getReference("Debt").child(did);
         db.keepSynced(true);
+
+        //calculate the total debts
+
+        totdebts = findViewById(R.id.totDebtAmount);
 
         db.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -90,6 +97,7 @@ public class DebtListActivity extends AppCompatActivity {
                     Debt debt = snap.getValue(Debt.class);
                     totdebt += debt.getAmount();
                 }
+
                 DecimalFormat decimalFormat = new DecimalFormat("#.00");
                 String fTotDebt = decimalFormat.format(totdebt);
 
@@ -101,6 +109,7 @@ public class DebtListActivity extends AppCompatActivity {
 
             }
         });
+
 
         fabbtn = findViewById(R.id.fabbtn);
 
@@ -154,6 +163,9 @@ public class DebtListActivity extends AppCompatActivity {
         adapter.startListening();
         recyclerView.setAdapter(adapter);
 
+
+
+
         income_nav = findViewById(R.id.income_nav);
         expense_nav = findViewById(R.id.expense_nav);
         debt_nav = findViewById(R.id.debt_nav);
@@ -169,21 +181,18 @@ public class DebtListActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
             }
         });
-
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),HomeActivity.class));
             }
         });
-
         expense_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(DebtListActivity.this,ExpenseManage.class) );
             }
         });
-
         todolist_nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,25 +214,26 @@ public class DebtListActivity extends AppCompatActivity {
 
     }
 
+    //Add new debts
     private void debtDialog(){
 
         AlertDialog.Builder myDialog_ = new AlertDialog.Builder(DebtListActivity.this);
         LayoutInflater inflater_= LayoutInflater.from(DebtListActivity.this);
-        View myview_ = inflater_.inflate(R.layout.activity_adddebt,null);
+        View MyView = inflater_.inflate(R.layout.activity_adddebt,null);
 
        final AlertDialog dialog_= myDialog_.create();
 
         if (dialog_.getWindow() !=null)
             dialog_.getWindow().getAttributes().windowAnimations = R.style.SlidingDialogAnimation;
 
-        dialog_.setView(myview_);
+        dialog_.setView(MyView);
 
-        final EditText name = myview_.findViewById(R.id.cus_name);
-        final EditText ddate = myview_.findViewById(R.id.debt_duedate);
-        final EditText damount = myview_.findViewById(R.id.debt_amount);
-        final EditText description = myview_.findViewById(R.id.debt_desc);
-        final Button btn = myview_.findViewById(R.id.btn);
-        ImageView cal = myview_.findViewById(R.id.adddebt_calendar);
+        final EditText name = MyView.findViewById(R.id.cus_name);
+        final EditText ddate = MyView.findViewById(R.id.debt_duedate);
+        final EditText damount = MyView.findViewById(R.id.debt_amount);
+        final EditText description = MyView.findViewById(R.id.debt_desc);
+        final Button btn = MyView.findViewById(R.id.btn);
+        ImageView cal = MyView.findViewById(R.id.adddebt_calendar);
 
 
         Calendar calendar = Calendar.getInstance();
@@ -258,12 +268,14 @@ public class DebtListActivity extends AppCompatActivity {
                 String dAmount = damount.getText().toString().trim();
                 String Desc = description.getText().toString().trim();
 
+
+          //Validation
                 if(TextUtils.isEmpty(Name)){
                     name.setError("Customer Name");
                     return;
                 }
                 if(TextUtils.isEmpty(Ddate)){
-                    ddate.setError("select date");
+                    ddate.setError("Select date");
                     return;
                 }
                 if(TextUtils.isEmpty(dAmount)){
@@ -292,20 +304,20 @@ public class DebtListActivity extends AppCompatActivity {
         DecimalFormat decimalFormat_ = new DecimalFormat("#.00");
         AlertDialog.Builder myDialog_ = new AlertDialog.Builder(DebtListActivity.this);
         LayoutInflater inflater_ = LayoutInflater.from(DebtListActivity.this);
-        View myview_ = inflater_.inflate(R.layout.activity_update,null);
+        View MyView = inflater_.inflate(R.layout.activity_update,null);
 
         final AlertDialog dialog_ = myDialog_.create();
 
         if (dialog_.getWindow() != null)
             dialog_.getWindow().getAttributes().windowAnimations = R.style.SlidingDialogAnimation;
 
-        dialog_.setView(myview_);
+        dialog_.setView(MyView);
 
-        final EditText upName = myview_.findViewById(R.id.debt_name);
-        final EditText updDate = myview_.findViewById(R.id._datedue);
-        final EditText upAmount = myview_.findViewById(R.id.amount_);
-        final EditText upDesc = myview_.findViewById(R.id.des);
-        ImageView upcal = myview_.findViewById(R.id.updebt_calendar);
+        final EditText upName = MyView.findViewById(R.id.debt_name);
+        final EditText updDate = MyView.findViewById(R.id._datedue);
+        final EditText upAmount = MyView.findViewById(R.id.amount_);
+        final EditText upDesc = MyView.findViewById(R.id.des);
+        ImageView upcal = MyView.findViewById(R.id.updebt_calendar);
 
         Calendar calendar = Calendar.getInstance();
 
@@ -323,7 +335,6 @@ public class DebtListActivity extends AppCompatActivity {
 
                         String date_ = i3+"/"+i2+"/"+i1;
                         updDate.setText(date_);
-                        
                     }
                 },year1,month1,day1);
                 datePickerDialog.show();
@@ -331,8 +342,10 @@ public class DebtListActivity extends AppCompatActivity {
             }
         });
 
+        //set the text previous added data
         upName.setText(name);
         upName.setSelection(name.length());
+
         updDate.setText(ddate);
         updDate.setSelection(ddate.length());
 
@@ -343,20 +356,24 @@ public class DebtListActivity extends AppCompatActivity {
         upDesc.setText(description);
         upDesc.setSelection(description.length());
 
-        ImageView imgup = myview_.findViewById(R.id.imgUpdate);
-        ImageView imgdl = myview_.findViewById(R.id.imgDelete);
+        //delete and update listner
+
+        ImageView imgup = MyView.findViewById(R.id.imgUpdate);
+        ImageView imgdl = MyView.findViewById(R.id.imgDelete);
 
         imgup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-               name = upName.getText().toString().trim();
+                name = upName.getText().toString().trim();
                 ddate = updDate.getText().toString().trim();
                 String dAmount = upAmount.getText().toString().trim();
                 description = upDesc.getText().toString().trim();
 
+                //checking
+
                 if(TextUtils.isEmpty(name)){
-                    upName.setError("Enter  Name");
+                    upName.setError("Enter name");
                     return;
                 }
 
@@ -364,16 +381,17 @@ public class DebtListActivity extends AppCompatActivity {
                     updDate.setError("Enter date");
                     return;
                 }
-                float floatAmount = Float.parseFloat(dAmount);
                 if(TextUtils.isEmpty(dAmount)){
-                    upAmount.setError("Enter date");
+                    upAmount.setError("Enter amount");
                     return;
                 }
+                float floatAmount = Float.parseFloat(dAmount);
+
 
 
                 Debt debt = new Debt(name,ddate,floatAmount,description);
                 db.child(postKey_).setValue(debt);
-                Toast.makeText(DebtListActivity.this,"Update Successfull",Toast.LENGTH_SHORT).show();
+                Toast.makeText(DebtListActivity.this,"Update Successfully",Toast.LENGTH_SHORT).show();
 
                 dialog_.dismiss();
 
@@ -383,7 +401,7 @@ public class DebtListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 db.child(postKey_).removeValue();
-                Toast.makeText(DebtListActivity.this,"Deleted",Toast.LENGTH_SHORT).show();
+                Toast.makeText(DebtListActivity.this,"Delete Successfully",Toast.LENGTH_SHORT).show();
                 dialog_.dismiss();
             }
         });

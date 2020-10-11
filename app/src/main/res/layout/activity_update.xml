@@ -25,7 +25,9 @@
                 android:padding="10dp"
                 android:text="Edit"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@android:color/white"></TextView>
+                android:textColor="@android:color/white">
+
+            </TextView>
 
 
 
