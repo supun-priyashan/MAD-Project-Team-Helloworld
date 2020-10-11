@@ -34,7 +34,8 @@ public class HomeActivity extends AppCompatActivity {
 
     //expense
     DatabaseReference reff;
-    private TextView Expense_total_home;
+    private TextView Expense_total_home,expense_prasantage;
+    float expense_prasant;
 
     //debt
     DatabaseReference db;
@@ -46,7 +47,8 @@ public class HomeActivity extends AppCompatActivity {
 
     //iNCOME
     DatabaseReference indb;
-    private TextView Income_total_home;
+    private TextView Income_total_home,income_prasantage;
+    float income_prasant;
 
     PieChart pieChart;
 
@@ -106,6 +108,7 @@ public class HomeActivity extends AppCompatActivity {
         //Expense
 
         Expense_total_home = findViewById(R.id.expense_total_home);
+        expense_prasantage = findViewById(R.id.expense_pra);
 
         reff= FirebaseDatabase.getInstance().getReference("Expense").child(uid);
 
@@ -119,19 +122,28 @@ public class HomeActivity extends AppCompatActivity {
                     Data data = dataSnapshot.getValue(Data.class);
 
                     expense_total_home +=data.getAmount();
+
+                    expense_prasant = (expense_total_home/(expense_total_home+totIncome))*100;
+
                 }
                 DecimalFormat decimalFormat = new DecimalFormat("#.00");
                 String TotExpense = decimalFormat.format(expense_total_home);
 
+
+                DecimalFormat decimalFormat1 = new DecimalFormat("#.0");
+                String expPre = decimalFormat1.format(expense_prasant);
+                String S = String.valueOf(expPre);
+
                 Expense_total_home.setText(String.valueOf(TotExpense));
+                expense_prasantage.setText("Expense : "+S+ "%");
 
                 pieChart.addPieSlice(
                         new PieModel(
-                                "C++",
                                 (int)expense_total_home,
                                 Color.parseColor("#EF5350")));
-            }
 
+                HomeActivity.super.onRestart();
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -159,8 +171,8 @@ public class HomeActivity extends AppCompatActivity {
 
                 debt_total_home.setText(String.valueOf(fTotDebt));
 
+                HomeActivity.super.onRestart();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -189,6 +201,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 shopping_tot.setText(String.valueOf(fTotAmount));
 
+                HomeActivity.super.onRestart();
             }
 
             @Override
@@ -200,7 +213,7 @@ public class HomeActivity extends AppCompatActivity {
         //Income
 
         Income_total_home = findViewById(R.id.income_tot_home);
-
+        income_prasantage = findViewById(R.id.income_pra);
 
         indb = FirebaseDatabase.getInstance().getReference("DataIncome").child(uid);
 
@@ -214,17 +227,26 @@ public class HomeActivity extends AppCompatActivity {
                     DataIncome data = dataSnapshot.getValue(DataIncome.class);
 
                     totIncome +=data.getAmount();
+
+                    income_prasant = 100-expense_prasant;
+
                 }
                 DecimalFormat decimalFormat = new DecimalFormat("#.00");
                 String TotIncome = decimalFormat.format(totIncome);
 
+                DecimalFormat decimalFormat1 = new DecimalFormat("#.0");
+                String incPre = decimalFormat1.format(income_prasant);
+                String S1 = String.valueOf(incPre);
+
                 Income_total_home.setText(String.valueOf(TotIncome));
+                income_prasantage.setText("Income : "+S1+ "%");
 
                 pieChart.addPieSlice(
                         new PieModel(
-                                "Python",
                                 (int)totIncome,
                                 Color.parseColor("#66BB6A")));
+
+                HomeActivity.super.onRestart();
             }
 
             @Override
@@ -233,22 +255,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        int a = (int)expense_total_home;
-        int b = (int)totIncome;
-
-        //Toast.makeText(getApplicationContext(),Income_total_home.getText().toString(),Toast.LENGTH_LONG).show();
-
-        //setData(a,b);
-
         pieChart.startAnimation();
-
     }
 
-    private void setData(int a,int b)
-    {
-
-
-
-
-    }
 }
